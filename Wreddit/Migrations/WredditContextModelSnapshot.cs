@@ -29,10 +29,16 @@ namespace Wreddit.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Downvotes")
+                        .HasColumnType("int");
+
                     b.Property<int>("ParentId")
                         .HasColumnType("int");
 
                     b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Upvotes")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -56,6 +62,12 @@ namespace Wreddit.Migrations
 
                     b.Property<int>("Downvotes")
                         .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Upvotes")
                         .HasColumnType("int");
@@ -87,21 +99,6 @@ namespace Wreddit.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Role");
-                });
-
-            modelBuilder.Entity("Wreddit.Entities.Settings", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Notifications")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("Wreddit.Entities.User", b =>
@@ -158,9 +155,6 @@ namespace Wreddit.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SettingsId")
-                        .IsUnique();
-
                     b.ToTable("Users");
                 });
 
@@ -198,17 +192,6 @@ namespace Wreddit.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Wreddit.Entities.User", b =>
-                {
-                    b.HasOne("Wreddit.Entities.Settings", "Settings")
-                        .WithOne("User")
-                        .HasForeignKey("Wreddit.Entities.User", "SettingsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Settings");
-                });
-
             modelBuilder.Entity("Wreddit.Entities.UserRole", b =>
                 {
                     b.HasOne("Wreddit.Entities.Role", "Role")
@@ -236,11 +219,6 @@ namespace Wreddit.Migrations
             modelBuilder.Entity("Wreddit.Entities.Role", b =>
                 {
                     b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("Wreddit.Entities.Settings", b =>
-                {
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Wreddit.Entities.User", b =>

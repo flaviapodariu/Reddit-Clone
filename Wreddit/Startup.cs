@@ -38,7 +38,7 @@ namespace Wreddit
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Wreddit", Version = "v1" });
             });
 
-            services.AddDbContext<WredditContext>(options => options.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=WredditDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            services.AddDbContext<WredditContext>(options => options.UseSqlServer("Data Source = (localdb)\\ProjectsV13; Initial Catalog = WredditDB; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False"));
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddAuthorization(options =>
             {

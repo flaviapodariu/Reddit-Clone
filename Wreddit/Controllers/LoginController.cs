@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Wreddit.Entities;
+using Wreddit.Repositories;
 
 namespace Wreddit.Controllers
 {
@@ -11,6 +13,11 @@ namespace Wreddit.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        private readonly IGenericRepository<User> _repository;
+        public LoginController(IGenericRepository<User> repository)
+        {
+            _repository = repository;
+        }
 
 
     }
