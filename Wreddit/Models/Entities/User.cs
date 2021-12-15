@@ -11,7 +11,6 @@ namespace Wreddit.Entities
         public User() : base() { }
         public int SettingsId { get; set; }
         public ICollection<Comments>? Comments { get; set; }
-        public Settings Settings { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
     }
 }

@@ -24,11 +24,6 @@ namespace Wreddit.Data
                 .HasMany(c => c.Comments)
                 .WithOne(u => u.User);
 
-            //One(RegisteredUser) to One(Settings)
-            modelBuilder.Entity<User>()
-                .HasOne(s => s.Settings)
-                .WithOne(u => u.User);
-
             modelBuilder.Entity<UserRole>(ur =>
             {
                 ur.HasKey(ur => new { ur.UserId, ur.RoleId });

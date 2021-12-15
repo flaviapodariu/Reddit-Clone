@@ -12,7 +12,6 @@ namespace Wreddit.Repositories
         private readonly WredditContext _context;
         private IUserRepository _user;
         private IPostRepository _post;
-     
         public RepositoryWrapper(WredditContext context)
         {
             _context = context;
