@@ -10,8 +10,8 @@ namespace Wreddit.Repositories
     public class RepositoryWrapper: IRepositoryWrapper
     {
         private readonly WredditContext _context;
-        private IUserRepository _user;
-        private IPostRepository _post;
+        private  IUserRepository _user;
+        private  IPostRepository _post;
      
         public RepositoryWrapper(WredditContext context)
         {

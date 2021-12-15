@@ -8,6 +8,7 @@ namespace Wreddit.Repositories
     public interface IRepositoryWrapper
     {
         IUserRepository User { get; }
+        IPostRepository Post { get; }
         Task SaveAsync();
     }
 }
