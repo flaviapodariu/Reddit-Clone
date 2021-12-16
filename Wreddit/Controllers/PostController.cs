@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Wreddit.Repositories;
-using Wreddit.Entities;
+using Wreddit.Models.Entities;
 
 
 namespace Wreddit.Controllers
@@ -24,7 +24,7 @@ namespace Wreddit.Controllers
         [Route("getPosts")]
         public IQueryable<Post> GetAllPosts()
         {
-            IQueryable<Post> posts =  _repository.Post.GetAll();
+            IQueryable<Post> posts = _repository.Post.GetAll();
             return posts;
         }
 

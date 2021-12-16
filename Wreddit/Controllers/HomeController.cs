@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Wreddit.Models.Entities;
+using Wreddit.Repositories;
 
 namespace Wreddit.Controllers
 {
@@ -11,9 +13,19 @@ namespace Wreddit.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        //public ActionResult SeePost()
-        //{
-        //    return Redirect
-        //}
+        private readonly IRepositoryWrapper _repository;
+        public HomeController(IRepositoryWrapper repository)
+        {
+            _repository = repository;
+        }
+
+        [HttpGet]
+        [Route("getPosts")]
+        public IQueryable<Post> GetAllPosts()
+        {
+            IQueryable<Post> posts = _repository.Post.GetAll();
+            return posts;
+        }
+
     }
 }

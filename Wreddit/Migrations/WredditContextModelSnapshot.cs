@@ -19,7 +19,7 @@ namespace Wreddit.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Wreddit.Entities.Comments", b =>
+            modelBuilder.Entity("Wreddit.Models.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,25 @@ namespace Wreddit.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Wreddit.Entities.Post", b =>
+            modelBuilder.Entity("Wreddit.Models.Entities.CommentVotes", b =>
+                {
+                    b.Property<int?>("CommentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VoteType")
+                        .HasColumnType("int");
+
+                    b.HasKey("CommentId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CommentVotes");
+                });
+
+            modelBuilder.Entity("Wreddit.Models.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,10 +95,30 @@ namespace Wreddit.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("Wreddit.Entities.Role", b =>
+            modelBuilder.Entity("Wreddit.Models.Entities.PostVotes", b =>
+                {
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VoteType")
+                        .HasColumnType("int");
+
+                    b.HasKey("PostId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PostVotes");
+                });
+
+            modelBuilder.Entity("Wreddit.Models.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -101,7 +139,7 @@ namespace Wreddit.Migrations
                     b.ToTable("Role");
                 });
 
-            modelBuilder.Entity("Wreddit.Entities.User", b =>
+            modelBuilder.Entity("Wreddit.Models.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -144,9 +182,6 @@ namespace Wreddit.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SettingsId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -158,7 +193,7 @@ namespace Wreddit.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Wreddit.Entities.UserRole", b =>
+            modelBuilder.Entity("Wreddit.Models.Entities.UserRole", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -173,15 +208,15 @@ namespace Wreddit.Migrations
                     b.ToTable("UserRole");
                 });
 
-            modelBuilder.Entity("Wreddit.Entities.Comments", b =>
+            modelBuilder.Entity("Wreddit.Models.Entities.Comment", b =>
                 {
-                    b.HasOne("Wreddit.Entities.Post", "Post")
+                    b.HasOne("Wreddit.Models.Entities.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Wreddit.Entities.User", "User")
+                    b.HasOne("Wreddit.Models.Entities.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -192,15 +227,62 @@ namespace Wreddit.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Wreddit.Entities.UserRole", b =>
+            modelBuilder.Entity("Wreddit.Models.Entities.CommentVotes", b =>
                 {
-                    b.HasOne("Wreddit.Entities.Role", "Role")
+                    b.HasOne("Wreddit.Models.Entities.Comment", "Comment")
+                        .WithMany("CommentsVotes")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Wreddit.Models.Entities.User", "User")
+                        .WithMany("CommentsVotes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Comment");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Wreddit.Models.Entities.Post", b =>
+                {
+                    b.HasOne("Wreddit.Models.Entities.User", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Wreddit.Models.Entities.PostVotes", b =>
+                {
+                    b.HasOne("Wreddit.Models.Entities.Post", "Post")
+                        .WithMany("PostVotes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Wreddit.Models.Entities.User", "User")
+                        .WithMany("PostVotes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Wreddit.Models.Entities.UserRole", b =>
+                {
+                    b.HasOne("Wreddit.Models.Entities.Role", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Wreddit.Entities.User", "User")
+                    b.HasOne("Wreddit.Models.Entities.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -211,19 +293,32 @@ namespace Wreddit.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Wreddit.Entities.Post", b =>
+            modelBuilder.Entity("Wreddit.Models.Entities.Comment", b =>
                 {
-                    b.Navigation("Comments");
+                    b.Navigation("CommentsVotes");
                 });
 
-            modelBuilder.Entity("Wreddit.Entities.Role", b =>
+            modelBuilder.Entity("Wreddit.Models.Entities.Post", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("PostVotes");
+                });
+
+            modelBuilder.Entity("Wreddit.Models.Entities.Role", b =>
                 {
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("Wreddit.Entities.User", b =>
+            modelBuilder.Entity("Wreddit.Models.Entities.User", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("CommentsVotes");
+
+                    b.Navigation("Posts");
+
+                    b.Navigation("PostVotes");
 
                     b.Navigation("UserRoles");
                 });

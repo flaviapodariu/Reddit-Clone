@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Wreddit.Entities;
+using Wreddit.Models.Entities;
 using Wreddit.Repositories;
 
 namespace Wreddit.Controllers
@@ -18,7 +18,7 @@ namespace Wreddit.Controllers
         {
             _repository = repository;
         }
-
+        
 
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Wreddit.Entities
+namespace Wreddit.Models.Entities
 {
     public class Role: IdentityRole<int>
     {

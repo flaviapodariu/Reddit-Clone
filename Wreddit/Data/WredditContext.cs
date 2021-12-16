@@ -1,17 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Wreddit.Entities;
+using Wreddit.Models.Entities;
 
 namespace Wreddit.Data
 {
-    public class WredditContext: DbContext
+    public class WredditContext : DbContext
     {
         public WredditContext(DbContextOptions<WredditContext> options) : base(options) { }
 
         public DbSet<Post> Posts { get; set; }
-        public DbSet<Comments> Comments { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Role { get; set; }
+        public DbSet<CommentVotes> CommentVotes { get; set; }
 
-
+        public DbSet<PostVotes> PostVotes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // One(Post) to Many(Comments)
@@ -32,9 +34,27 @@ namespace Wreddit.Data
                 ur.HasOne(ur => ur.User).WithMany(u => u.UserRoles).HasForeignKey(ur => ur.UserId);
             });
 
+            modelBuilder.Entity<PostVotes>(ur =>
+            {
+                ur.HasKey(ur => new { ur.PostId, ur.UserId });
+
+                ur.HasOne(ur => ur.Post).WithMany(r => r.PostVotes).HasForeignKey(ur => ur.PostId);
+                ur.HasOne(ur => ur.User).WithMany(u => u.PostVotes).HasForeignKey(ur => ur.UserId);
+
+
+            });
+
+            modelBuilder.Entity<CommentVotes>(ur =>
+            {
+                ur.HasKey(ur => new { ur.CommentId, ur.UserId });
+
+                ur.HasOne(ur => ur.Comment).WithMany(r => r.CommentsVotes).HasForeignKey(ur => ur.CommentId);
+                ur.HasOne(ur => ur.User).WithMany(u => u.CommentsVotes).HasForeignKey(ur => ur.UserId);
+            });
+
             base.OnModelCreating(modelBuilder);
+
+
         }
-
-
     }
 }
