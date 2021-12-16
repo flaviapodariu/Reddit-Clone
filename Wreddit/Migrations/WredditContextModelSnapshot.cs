@@ -248,11 +248,13 @@ namespace Wreddit.Migrations
 
             modelBuilder.Entity("Wreddit.Models.Entities.Post", b =>
                 {
-                    b.HasOne("Wreddit.Models.Entities.User", null)
+                    b.HasOne("Wreddit.Models.Entities.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Wreddit.Models.Entities.PostVotes", b =>

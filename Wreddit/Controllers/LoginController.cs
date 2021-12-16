@@ -13,12 +13,26 @@ namespace Wreddit.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IGenericRepository<User> _repository;
-        public LoginController(IGenericRepository<User> repository)
+        private readonly IRepositoryWrapper _repository;
+        public LoginController(IRepositoryWrapper repository)
         {
             _repository = repository;
         }
-        
+        [HttpPost]
+        public async Task<IActionResult> CheckUser(User user)
+        {
+            Task<User> user2 = _repository.User.GetUserByEmail(user.Email);
+            if (user2 == null)
+            {
+                 //_repository.SaveAsync();
+                return Ok(user);
+            }
+            //await _repository.SaveAsync();
+            return NotFound();
+            //return Ok(user);
+        }
+
+
 
     }
 }

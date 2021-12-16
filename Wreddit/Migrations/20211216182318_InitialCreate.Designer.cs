@@ -10,7 +10,7 @@ using Wreddit.Data;
 namespace Wreddit.Migrations
 {
     [DbContext(typeof(WredditContext))]
-    [Migration("20211216162647_InitialCreate")]
+    [Migration("20211216182318_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -250,11 +250,13 @@ namespace Wreddit.Migrations
 
             modelBuilder.Entity("Wreddit.Models.Entities.Post", b =>
                 {
-                    b.HasOne("Wreddit.Models.Entities.User", null)
+                    b.HasOne("Wreddit.Models.Entities.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Wreddit.Models.Entities.PostVotes", b =>

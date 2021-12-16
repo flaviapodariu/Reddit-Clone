@@ -19,13 +19,5 @@ namespace Wreddit.Controllers
             _repository = repository;
         }
 
-        [HttpGet]
-        [Route("getPosts")]
-        public IQueryable<Post> GetAllPosts()
-        {
-            IQueryable<Post> posts = _repository.Post.GetAll();
-            return posts;
-        }
-
     }
 }

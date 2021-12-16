@@ -10,6 +10,6 @@ namespace Wreddit.Repositories
     public interface IUserRepository: IGenericRepository<User>
     {
         Task<List<User>> GetAllUsers();
-        Task<User> GetUserByEmail(string email);
+        Task<User>  GetUserByEmail(string email);
     }
 }
