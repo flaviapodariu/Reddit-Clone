@@ -21,7 +21,7 @@ namespace Wreddit.Controllers
         [HttpPost]
         public async Task<IActionResult> CheckUser(User user)
         {
-            Task<User> user2 = await _repository.User.GetUserByEmail(user.Email);
+            Task<User> user2 = _repository.User.GetUserByEmail(user.Email);
             if (user2 == null)
             {
                  //_repository.SaveAsync();

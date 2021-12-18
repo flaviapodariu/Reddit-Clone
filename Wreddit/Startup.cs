@@ -21,6 +21,8 @@ namespace Wreddit
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,6 +33,19 @@ namespace Wreddit
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200");
+                                                    //.SetIsOriginAllowedToAllowWildcardSubdomains()
+                                                    //.AllowAnyHeader()
+                                                    //.AllowAnyMethod();
+                                  });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -67,25 +82,31 @@ namespace Wreddit
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wreddit v1"));
             }
 
-            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
-            var builder = CreateBuilder(args);
+            //var builder = CreateBuilder(args);
 
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("http://example.com",
-                                                          "http://www.contoso.com");
-                                  });
-            });
-            app.UseHttpsRedirection();
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //                      builder =>
+            //                      {
+            //                          builder.WithOrigins("http://example.com",
+            //                                              "http://www.contoso.com");
+            //                      });
+            //});
 
             app.UseCors(MyAllowSpecificOrigins);
+            app.UseHttpsRedirection();
+
+            //app.UseCors(
+            //    options => options.WithOrigins("http://localhost:4200")
+            //                                        .AllowAnyMethod()
+            //                                        .AllowAnyHeader()
+            //                                        .AllowAnyOrigin()
+            //) ;
 
             app.UseRouting();
-
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
