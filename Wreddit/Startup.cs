@@ -21,6 +21,8 @@ namespace Wreddit
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,6 +33,16 @@ namespace Wreddit
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200");
+                                  });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -67,6 +79,7 @@ namespace Wreddit
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wreddit v1"));
             }
 
+<<<<<<< HEAD
             //var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
             //var builder = CreateBuilder(args);
@@ -83,9 +96,14 @@ namespace Wreddit
             app.UseHttpsRedirection();
 
             //app.UseCors(MyAllowSpecificOrigins);
+=======
+            app.UseCors(MyAllowSpecificOrigins);
+            app.UseHttpsRedirection();
+
+>>>>>>> 1e45886e9acd73bf372ef942b435c9c845f6d7f1
 
             app.UseRouting();
-
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

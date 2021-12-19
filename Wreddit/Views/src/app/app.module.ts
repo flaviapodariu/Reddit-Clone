@@ -10,12 +10,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
+<<<<<<< HEAD
 
+=======
+import { SignupComponent } from './signup/signup.component';
+import { PostComponent } from './post/post.component';
+>>>>>>> 1e45886e9acd73bf372ef942b435c9c845f6d7f1
 
 @NgModule({
   declarations: [
     AppComponent,
-    routingComponents
+    routingComponents,
+    PostComponent
   ],
   imports: [
     BrowserModule,

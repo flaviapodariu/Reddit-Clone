@@ -35,7 +35,7 @@ namespace Wreddit.Repositories
         }
         public  IQueryable<TEntity> GetAll()
         {
-            return   _context.Set<TEntity>().AsNoTracking();
+            return  _context.Set<TEntity>().AsNoTracking();
         }
 
         public async Task<TEntity> GetByIdAsync(int id)
