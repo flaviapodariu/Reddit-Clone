@@ -41,9 +41,6 @@ namespace Wreddit
                                   builder =>
                                   {
                                       builder.WithOrigins("http://localhost:4200");
-                                                    //.SetIsOriginAllowedToAllowWildcardSubdomains()
-                                                    //.AllowAnyHeader()
-                                                    //.AllowAnyMethod();
                                   });
             });
 
@@ -82,28 +79,9 @@ namespace Wreddit
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wreddit v1"));
             }
 
-
-            //var builder = CreateBuilder(args);
-
-            //builder.Services.AddCors(options =>
-            //{
-            //    options.AddPolicy(name: MyAllowSpecificOrigins,
-            //                      builder =>
-            //                      {
-            //                          builder.WithOrigins("http://example.com",
-            //                                              "http://www.contoso.com");
-            //                      });
-            //});
-
             app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
 
-            //app.UseCors(
-            //    options => options.WithOrigins("http://localhost:4200")
-            //                                        .AllowAnyMethod()
-            //                                        .AllowAnyHeader()
-            //                                        .AllowAnyOrigin()
-            //) ;
 
             app.UseRouting();
             app.UseCors(MyAllowSpecificOrigins);
