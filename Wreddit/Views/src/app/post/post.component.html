@@ -1,7 +1,34 @@
-<p>post works!</p>
-<ul>
-  <li *ngFor="let post of posts">
-    <h1>titlu: {{ post.title }}</h1>
-    <p>titlu: {{ post.text }}</p>
-  </li>
-</ul>
+<div class="post-box" routerLink="/">
+  <div class="post-votes-details-wrapper">
+    <div class="post-votes">
+      <button class="upvote">&#8679;</button>
+      <!-- code for arrow up -->
+      <div class="vote-balance">843</div>
+      <button class="downvote">&#8681;</button>
+      <!-- code for arrow down -->
+    </div>
+
+    <div class="post-details">
+      <div class="author-timestamp-wrapper">
+        <div class="post-author">gigel</div>
+        <!-- getPostAuthor()-->
+        <div class="post-timestamp">3h ago</div>
+      </div>
+
+      <div class="post-title">{{ post.title }}</div>
+
+      <div class="post-content">
+        {{ post.text }}
+      </div>
+    </div>
+  </div>
+
+  <div class="lower-post-links-wrapper">
+    <div class="comment-count">0 Comments</div>
+
+    <div class="share-post-link" routerLink="/login">
+      <div class="share-icon">&#10532;</div>
+      Share
+    </div>
+  </div>
+</div>

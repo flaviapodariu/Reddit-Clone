@@ -1,14 +1,12 @@
-<<<<<<< HEAD
 <div class="navbar">
-  <a class="navbar-brand" routerLink="/" style="color:white">
-    <img src="/assets/images/fake-icon.png" width="30" height="30" alt="app logo">
+  <a class="navbar-brand" routerLink="/" style="color: white">
+    <img
+      src="/assets/images/fake-icon.png"
+      width="30"
+      height="30"
+      alt="app logo"
+    />
     &nbsp; Wreddit
-=======
-<nav class="navbar">
-  <a class="navbar-brand" href="./" style="color: white">
-    <img src="/assets/images/fake-icon.png" width="30" height="30" alt="" />
-    Wreddit
->>>>>>> 1e45886e9acd73bf372ef942b435c9c845f6d7f1
   </a>
   <div class="account-control">
     <button routerLink="/login" mat-stroked-button>Log In</button>
@@ -16,53 +14,8 @@
   </div>
 </div>
 
-<div class="post-box" routerLink="/">
-  <div class="post-votes-details-wrapper">
-   <div class="post-votes">
-     <button class="upvote"> &#8679; </button>  <!-- code for arrow up -->
-     <div class="vote-balance">843</div>
-     <button class="downvote">	&#8681; </button>         <!-- code for arrow down -->
-   </div>
-
-   <div class="post-details">
-     <div class="author-timestamp-wrapper">
-       <div class="post-author">gigel</div>  	<!-- getPostAuthor()-->
-       <div class="post-timestamp"> 3h ago </div>
-     </div>
-
-     <div class="post-title"> Reteta chec pufos</div>
-
-     <div class="post-content">
-      Ingrediente : 
-      200g faina
-      200g zahar
-      5 oua separate
-16g Zahar vanilat (2 plicuri)
-4 linguri ulei
-1 lingura cacao
-1 praf de copt
-Putina sare
-
-Mixam albusurile cu sarea pana se fac spuma. Adaugam zaharul vanilat. Adaugam zaharul cate o lingura in timp ce mixam. Rezultatul : o bezea tare
-
-Adaugam ulei putin cate putin in timp ce amestecam galbenusurile. 
-     </div>
-   </div>
-  </div>
-
-   <div class="lower-post-links-wrapper">
-     <div class="comment-count">0 Comments</div>
-
-     <div class="share-post-link" routerLink="/login" >
-        <div class="share-icon"> &#10532; </div>  
-           Share
-        </div>
-  </div>
-   
-</div>
-
 <div>
-  <app-post></app-post>
+  <app-home></app-home>
 </div>
 
 <router-outlet></router-outlet>

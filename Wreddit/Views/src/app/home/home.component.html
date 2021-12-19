@@ -1,0 +1,7 @@
+<div class="container">
+  <div *ngFor="let post of posts">
+    <!-- <h1>titlu: {{ post.title }}</h1>
+    <p>titlu: {{ post.text }}</p> -->
+    <app-post [post]="post"></app-post>
+  </div>
+</div>

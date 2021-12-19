@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { PostsService, PostResponse } from '../posts.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { PostResponse } from '../posts.service';
 
 @Component({
   selector: 'app-post',
@@ -7,13 +7,8 @@ import { PostsService, PostResponse } from '../posts.service';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-  posts: PostResponse[] = [];
-  constructor(private postsService: PostsService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.postsService.getPosts().then((response: PostResponse[]) => {
-      this.posts = response;
-      console.log(this.posts);
-    });
-  }
+  @Input() post: any;
+  ngOnInit(): void {}
 }

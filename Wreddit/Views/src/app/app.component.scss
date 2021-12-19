@@ -1,166 +1,64 @@
 :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 14px;
-    color: #333;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 8px 0;
-  }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 8px 0;
+}
 
-  p {
-    margin: 0;
-  }
+p {
+  margin: 0;
+}
 
-  .spacer {
-    flex: 1;
-  }
+.spacer {
+  flex: 1;
+}
 
-  .navbar-brand {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding-left: 15px;
-    height: 55px;
-    display: flex;
-    align-items: center;
-    background-color: #1A1A1B;
-    color: white;
-    font-weight: 600;
-  }
-  .account-control{
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    column-gap: 0.5vw;
-    right:0;
-    padding-right: 15px;
-    padding-top: 8px;
-    
-  }
-
-  .account-control > button{
-      border-radius: 9999px;
-      font-family: sans-serif;
-      border-color: white;
-      color:white;
-  }
-  
-  a,
-  a:visited,
-  a:hover {
-    color: #1976d2;
-    text-decoration: none;
-  }
-  // Posts 
-
-  .post-box{
-    position: absolute;
-    left: 40%;
-    top: 40%;
-    width: 40vw;
-    margin-left: -20vw;
-    max-height: 30vh;
-    display:flex;
-    flex-direction:column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    row-gap: 1vw;
-    border: 1px solid lightgrey;
-    border-radius: 5px;
-    overflow:hidden;
-    z-index: 1;
-    
-
-  }
-  .post-box:hover{
-    border: 1px solid black;
-    cursor: pointer;
-  }
-  .post-votes-details-wrapper{
-    position:relative;
-    display:flex;
-    flex-direction: row;
-    column-gap:1vw;
-    max-height: 65%;
-    width: 100%;
-  }
-
-
-.post-votes{
-  display:flex;
-  flex-direction: column;
+.navbar-brand {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-left: 15px;
+  height: 55px;
+  display: flex;
   align-items: center;
-  font-family: sans-serif;
-  font-weight: 400;
+  background-color: #1a1a1b;
+  color: white;
+  font-weight: 600;
 }
-.post-votes>button{
-  border: none;
-  background: none;
-  font-size: 1.7rem;
-  font-weight: 700;
-  font-family:system-ui;
-}
-.upvote:hover{
-  color: rgb(221, 40, 40);
-  cursor: pointer;
-}
-.downvote:hover{
-  color: #0288d1;
-  cursor:pointer;
-}
-.post-details{
-  display:flex;
-  flex-direction: column;
-  row-gap: 1vw;
-  width:100%;
-  max-height: inherit;
-}
-.post-title{
-  font-size:1.1rem ;
-}
-.post-content{
-  position: relative;
-  max-height: inherit;
-  overflow-y:hidden;
-}
-
-.author-timestamp-wrapper{
+.account-control {
+  position: absolute;
   display: flex;
   flex-direction: row;
   column-gap: 0.5vw;
-}
-.post-author:hover{
-  cursor:pointer;
-  text-decoration: underline;
-}
-.lower-post-links-wrapper{
-  display:flex;
-  flex-direction: row;
-  align-items: center;
-  width:100%;
-  margin-left: 7%;
-  column-gap: 1vw;
+  right: 0;
+  padding-right: 15px;
+  padding-top: 8px;
 }
 
-.share-post-link{
-  z-index: 3;
+.account-control > button {
+  border-radius: 9999px;
+  font-family: sans-serif;
+  border-color: white;
+  color: white;
 }
-.share-post-link:hover, .comment-count:hover{
-  border:0px;
-  border-radius: 5px;
-  background: lightgrey;
+
+a,
+a:visited,
+a:hover {
+  color: #1976d2;
+  text-decoration: none;
 }
-.share-icon{
-  display:inline-block;
-  font-size:x-large;
-}
+// Posts
