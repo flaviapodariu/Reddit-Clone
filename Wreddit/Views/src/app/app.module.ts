@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { SignupComponent } from './signup/signup.component';
+
 
 @NgModule({
   declarations: [

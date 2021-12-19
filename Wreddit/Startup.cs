@@ -67,22 +67,22 @@ namespace Wreddit
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Wreddit v1"));
             }
 
-            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+            //var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
-            var builder = CreateBuilder(args);
+            //var builder = CreateBuilder(args);
 
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("http://example.com",
-                                                          "http://www.contoso.com");
-                                  });
-            });
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //                      builder =>
+            //                      {
+            //                          builder.WithOrigins("http://example.com",
+            //                                              "http://www.contoso.com");
+            //                      });
+            //});
             app.UseHttpsRedirection();
 
-            app.UseCors(MyAllowSpecificOrigins);
+            //app.UseCors(MyAllowSpecificOrigins);
 
             app.UseRouting();
 
