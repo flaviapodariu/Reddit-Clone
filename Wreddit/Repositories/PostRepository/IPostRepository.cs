@@ -9,6 +9,10 @@ namespace Wreddit.Repositories
 {
    public interface IPostRepository: IGenericRepository<Post>
     {
+        Task<List<Post>> GetAllPostsWithUsers();
+        Task<List<Post>> GetAllPostsWithComments();
+        Task<Post> GetPostWithComments(int id);
+        Task<Post> GetPostWithUser(int id);
 
     }
 }

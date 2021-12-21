@@ -9,6 +9,13 @@ import { PostResponse } from '../posts.service';
 export class PostComponent implements OnInit {
   constructor() {}
 
-  @Input() post: any;
+  @Input() post: PostResponse = {
+    id: 0,
+    userId: 0,
+    upvotes: 0,
+    downvotes: 0,
+    title: '',
+    text: '',
+  };
   ngOnInit(): void {}
 }

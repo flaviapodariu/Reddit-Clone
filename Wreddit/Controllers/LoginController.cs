@@ -28,7 +28,7 @@ namespace Wreddit.Controllers
                 return Ok(user);
             }
             //await _repository.SaveAsync();
-            return NotFound();
+            return NotFound("Userul nu exista");
             //return Ok(user);
         }
 

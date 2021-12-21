@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Wreddit.Repositories;
 using Wreddit.Models.Entities;
-
+using Wreddit.Models.Entities.DTOs;
 
 namespace Wreddit.Controllers
 {
@@ -21,19 +21,26 @@ namespace Wreddit.Controllers
         }
 
         [HttpGet]
-        [Route("getPosts")]
-        public IQueryable<Post> GetAllPosts()
+        public async Task<IActionResult> GetAllPosts()
         {
-            IQueryable<Post> posts = _repository.Post.GetAll();
-            return posts;
+            List<Post> posts = await _repository.Post.GetAllPostsWithUsers(); // join on user table
+
+            var postsToReturn = new List<PostDTO>();
+            foreach(var post in posts)
+            {
+                var userToReturn = new UserDTO(post.User);  
+                var postDto = new PostDTO(post);
+                postDto.User = userToReturn;
+                postsToReturn.Add(postDto);
+            }
+            return Ok(postsToReturn);
         }
 
-        [HttpGet]
-        //[Route("post/{id}")]
-        public async Task<IActionResult> GetPostById([FromQuery] int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPostById(int id)
         {
-            var postToReturn = await _repository.Post.GetByIdAsync(id);
-            return Ok(postToReturn);
+            var post = await _repository.Post.GetPostWithComments(id);   
+            return Ok(post);
         }
 
         [HttpPost]
@@ -44,6 +51,5 @@ namespace Wreddit.Controllers
             return Ok(newPost);
         }
 
-       // public ActionResult 
     }
 }

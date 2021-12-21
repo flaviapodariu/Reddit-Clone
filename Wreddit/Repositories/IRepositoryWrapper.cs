@@ -9,6 +9,7 @@ namespace Wreddit.Repositories
     {
         IUserRepository User { get; }
         IPostRepository Post { get; }
+        ICommentRepository Comment { get; }
         Task SaveAsync();
     }
 }

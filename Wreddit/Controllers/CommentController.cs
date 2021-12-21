@@ -9,15 +9,23 @@ using Wreddit.Repositories;
 
 namespace Wreddit.Controllers
 {
-    [Route("")]
+    [Route("[controller]")]
     [ApiController]
-    public class HomeController : ControllerBase
+    public class CommentController : ControllerBase
     {
         private readonly IRepositoryWrapper _repository;
-        public HomeController(IRepositoryWrapper repository)
+
+        public CommentController(IRepositoryWrapper repository)
         {
             _repository = repository;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateComment(Comment comm)
+        {
+            _repository.Comment.Create(comm);
+            await _repository.SaveAsync();
+            return Ok(comm);
+        }
     }
 }
