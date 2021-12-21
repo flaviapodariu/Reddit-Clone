@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Wreddit.Data;
 using Wreddit.Models.Entities;
+using Wreddit.Models.Entities.DTOs;
 
 namespace Wreddit.Repositories
 {
@@ -34,3 +36,4 @@ namespace Wreddit.Repositories
         }
     }
 }
+     

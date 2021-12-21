@@ -21,6 +21,14 @@ namespace Wreddit.Repositories
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
         }
+
+        public async Task<User> GetByIdWithRoles(int id)
+        {
+            return await _context.Users
+                .Include(u => u.UserRoles)
+                    .ThenInclude(ur => ur.Role)
+                .FirstOrDefaultAsync(u => u.Id.Equals(id));
+        }
     }
 }
 

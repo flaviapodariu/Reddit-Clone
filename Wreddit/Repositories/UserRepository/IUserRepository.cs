@@ -11,5 +11,6 @@ namespace Wreddit.Repositories
     {
         Task<List<User>> GetAllUsers();
         Task<User> GetUserByEmail(string email);
+        Task<User> GetByIdWithRoles(int id);
     }
 }

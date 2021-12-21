@@ -9,8 +9,9 @@ namespace Wreddit.Repositories
     public class RepositoryWrapper: IRepositoryWrapper
     {
         private readonly WredditContext _context;
-        private  IUserRepository _user;
-        private  IPostRepository _post;
+        private IUserRepository _user;
+        private IPostRepository _post;
+        private ISessionTokenRepository _sessionToken;
         private ICommentRepository _comment;
      
         public RepositoryWrapper(WredditContext context)
@@ -34,6 +35,16 @@ namespace Wreddit.Repositories
                 if (_post == null)
                     _post = new PostRepository(_context);
                 return _post;
+            }
+        }
+
+        public ISessionTokenRepository SessionToken
+        {
+            get
+            {
+                if (_sessionToken == null)
+                    _sessionToken = new SessionTokenRepository(_context);
+                return _sessionToken;
             }
         }
         public ICommentRepository Comment

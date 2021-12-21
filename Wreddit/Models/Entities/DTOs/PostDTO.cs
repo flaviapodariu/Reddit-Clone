@@ -27,7 +27,11 @@ namespace Wreddit.Models.Entities.DTOs
             this.Downvotes = post.Downvotes;
             this.Title = post.Title;
             this.Text = post.Text;
+            this.Comments = new List<Comment>();
+            this.PostVotes = new List<PostVotes>();
         }
         public PostDTO() {}
     }
+
+    
 }

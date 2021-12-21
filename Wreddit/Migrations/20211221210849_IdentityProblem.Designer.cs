@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Wreddit.Data;
 
 namespace Wreddit.Migrations
 {
     [DbContext(typeof(WredditContext))]
-    partial class WredditContextModelSnapshot : ModelSnapshot
+    [Migration("20211221210849_IdentityProblem")]
+    partial class IdentityProblem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
