@@ -33,9 +33,9 @@ namespace Wreddit.Repositories
         {
             _context.Set<TEntity>().RemoveRange(entities);
         }
-        public  IQueryable<TEntity> GetAll()
+        public IQueryable<TEntity> GetAll()
         {
-            return  _context.Set<TEntity>().AsNoTracking();
+            return _context.Set<TEntity>().AsNoTracking();
         }
 
         public async Task<TEntity> GetByIdAsync(int id)

@@ -6,7 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Wreddit.Repositories;
 using Wreddit.Models.Entities;
-
+using Wreddit.Models.Entities.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Wreddit.Controllers
 {
@@ -22,10 +23,11 @@ namespace Wreddit.Controllers
 
         [HttpGet]
         [Route("getPosts")]
-        public IQueryable<Post> GetAllPosts()
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> GetAllPostsAsync()
         {
-            IQueryable<Post> posts = _repository.Post.GetAll();
-            return posts;
+            var posts =  await _repository.Post.GetAllPostsWithAuthors();
+            return Ok(posts);
         }
 
         [HttpGet]
@@ -43,6 +45,8 @@ namespace Wreddit.Controllers
             await _repository.SaveAsync();
             return Ok(newPost);
         }
+
+
 
        // public ActionResult 
     }

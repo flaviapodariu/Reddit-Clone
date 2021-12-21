@@ -3,14 +3,14 @@
     <div class="post-votes">
       <button class="upvote">&#8679;</button>
       <!-- code for arrow up -->
-      <div class="vote-balance">843</div>
+      <div class="vote-balance">{{post.upvotes - post.downvotes}}</div>
       <button class="downvote">&#8681;</button>
       <!-- code for arrow down -->
     </div>
 
     <div class="post-details">
       <div class="author-timestamp-wrapper">
-        <div class="post-author">gigel</div>
+        <div class="post-author">{{post.username}}</div>
         <!-- getPostAuthor()-->
         <div class="post-timestamp">3h ago</div>
       </div>
@@ -21,7 +21,7 @@
         {{ post.text }}
       </div>
     </div>
-  </div>
+  </div> 
 
   <div class="lower-post-links-wrapper">
     <div class="comment-count">0 Comments</div>

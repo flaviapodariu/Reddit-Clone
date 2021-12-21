@@ -1,21 +1,30 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Wreddit.Models.Entities;
 
 namespace Wreddit.Data
 {
-    public class WredditContext : DbContext
+    public class WredditContext : IdentityDbContext<User, Role, int,
+        IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>,
+        IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
-        public WredditContext(DbContextOptions<WredditContext> options) : base(options) { }
+        public WredditContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Role { get; set; }
+        //public DbSet<User> Users { get; set; }
+        //public DbSet<Role> Roles { get; set; }
+        //public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<CommentVotes> CommentVotes { get; set; }
 
         public DbSet<PostVotes> PostVotes { get; set; }
+
+        public DbSet<SessionToken> SessionTokens { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             // One(Post) to Many(Comments)
             modelBuilder.Entity<Post>()
                 .HasMany(p => p.Comments)
@@ -24,6 +33,11 @@ namespace Wreddit.Data
             //One(User) to Many(Comments)
             modelBuilder.Entity<User>()
                 .HasMany(c => c.Comments)
+                .WithOne(u => u.User);
+
+            //One(User) to Many(Posts)
+            modelBuilder.Entity<User>()
+                .HasMany(p => p.Posts)
                 .WithOne(u => u.User);
 
             modelBuilder.Entity<UserRole>(ur =>
@@ -52,7 +66,7 @@ namespace Wreddit.Data
                 ur.HasOne(ur => ur.User).WithMany(u => u.CommentsVotes).HasForeignKey(ur => ur.UserId);
             });
 
-            base.OnModelCreating(modelBuilder);
+            
 
 
         }
