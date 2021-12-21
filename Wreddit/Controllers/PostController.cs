@@ -39,8 +39,12 @@ namespace Wreddit.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPostById(int id)
         {
-            var post = await _repository.Post.GetPostWithComments(id);   
-            return Ok(post);
+            var post = await _repository.Post.GetPostWithUser(id);
+            var postToReturn = new PostDTO(post);
+            var userToReturn = new UserDTO(post.User);
+
+            postToReturn.User = userToReturn;
+            return Ok(postToReturn);
         }
 
         [HttpPost]

@@ -7,6 +7,11 @@ export interface PostResponse {
   downvotes: number;
   title: string;
   text: string;
+  user: {
+    email: string;
+    id: number;
+    userName: string;
+  };
 }
 
 @Injectable({
@@ -17,7 +22,12 @@ export class PostsService {
   constructor() {}
 
   getPosts() {
-    return fetch(`${this.apiUrl}/post/getPosts`, {
+    return fetch(`${this.apiUrl}/post`, {
+      method: 'GET',
+    }).then((response) => response.json());
+  }
+  getPostById(id: number) {
+    return fetch(`${this.apiUrl}/post/` + id, {
       method: 'GET',
     }).then((response) => response.json());
   }

@@ -16,6 +16,11 @@ export class PostComponent implements OnInit {
     downvotes: 0,
     title: '',
     text: '',
+    user: {
+      email: '',
+      id: 0,
+      userName: '',
+    },
   };
   ngOnInit(): void {}
 }

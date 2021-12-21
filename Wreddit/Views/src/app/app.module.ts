@@ -12,9 +12,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HomeComponent } from './home/home.component';
 import { PostComponent } from './post/post.component';
+import { ViewPostComponent } from './view-post/view-post.component';
 
 @NgModule({
-  declarations: [AppComponent, routingComponents, HomeComponent, PostComponent],
+  declarations: [AppComponent, routingComponents, HomeComponent, PostComponent, ViewPostComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
