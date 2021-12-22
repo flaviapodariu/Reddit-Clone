@@ -15,7 +15,13 @@ import { PostComponent } from './post/post.component';
 import { ViewPostComponent } from './view-post/view-post.component';
 
 @NgModule({
-  declarations: [AppComponent, routingComponents, HomeComponent, PostComponent, ViewPostComponent],
+  declarations: [
+    AppComponent,
+    routingComponents,
+    HomeComponent,
+    PostComponent,
+    ViewPostComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

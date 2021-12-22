@@ -1,10 +1,17 @@
 .container {
-  position:relative;
-  left:50%;
-  transform: translate(-50%, 20%);
+  padding-top: 3rem;
   display: flex;
   flex-direction: column;
+  // justify-content: space-around;
   row-gap: 3rem;
-  width: 90%;
+  width: 70%;
   margin: auto;
+}
+.create-post-btn {
+  width: 10%;
+  background-color: #ff4500;
+  color: white;
+}
+.create-post-btn:hover {
+  background-color: #ed3f00;
 }

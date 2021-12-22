@@ -22,7 +22,7 @@ namespace Wreddit.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         public async Task<IActionResult> GetAllPosts()
         {
             List<Post> posts = await _repository.Post.GetAllPostsWithUsers(); // join on user table
