@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
-
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { AuthenticationService } from '../services/authentication.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -8,15 +8,29 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class SignupComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: AuthenticationService) {
+   }
+  
+  emailCheck = new FormControl('', [Validators.required, Validators.email]);
 
-  email = new FormControl('', [Validators.required, Validators.email]);
   getErrorMessage() {
-   if (this.email.hasError('required')) {
+   if (this.emailCheck.hasError('required')) {
      return 'You must enter a valid email';
    }
-   return this.email.hasError('email') ? 'Not a valid email' : '';
+   return this.emailCheck.hasError('email') ? 'Not a valid email' : '';
  }
+
+
+  signupForm = new FormGroup({
+    email: new FormControl(''),
+    userName: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required])                 
+  });
+  onSubmit(){
+    let newUser = this.signupForm.value;
+    this.service.register(newUser)
+        .subscribe(u => {alert('success'); });
+  }
   ngOnInit(): void {
   }
 

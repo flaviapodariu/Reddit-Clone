@@ -6,27 +6,27 @@
     <div class = "signup-wrapper">
        <div class="title-cell">Sign Up</div>
   
-       <div class="signup-input-wrapper">  
+       <form class="signup-input-wrapper" [formGroup]="signupForm" (ngSubmit)="onSubmit()">  
          <mat-form-field class="email-box" appearance="fill">
            <mat-label>Email</mat-label>
-           <input matInput placeholder="pat@example.com" [formControl]="email" required>
-           <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+           <input matInput placeholder="pat@example.com" formControlName="email" [formControl]="emailCheck" required>
+           <mat-error *ngIf="emailCheck.invalid">{{getErrorMessage()}}</mat-error>
          </mat-form-field>
 
          <mat-form-field class="username-box" appearance="fill">
            <mat-label>Username</mat-label>
-           <input matInput type="text" placeholder="Username" required>
+           <input matInput type="text" formControlName="userName" placeholder="Username" required>
            <mat-error></mat-error>
          </mat-form-field> 
 
          <mat-form-field class="password-box" appearance="fill">
            <mat-label>Password</mat-label>
-           <input matInput type="password" placeholder="Password" required>
+           <input matInput type="password" formControlName="password" placeholder="Password" required>
            <mat-error></mat-error>
          </mat-form-field>
   
-         <button class="auth-button" mat-raised-button color="accent">Sign Up</button>
-       </div>
+         <button class="auth-button" type="submit" mat-raised-button color="accent">Sign Up</button>
+        </form>
        
        <div class="lower-form"> Already a redditor?
          <div class="lower-link" routerLink="/login">LOG IN</div>

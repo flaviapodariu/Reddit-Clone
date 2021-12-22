@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +41,7 @@ namespace Wreddit.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [EnableCors("_myAllowSpecificOrigins")]
         public async Task<IActionResult> Register([FromBody] RegisterUserDTO newUser)
         {
             var exists = await _userManager.FindByEmailAsync(newUser.Email);

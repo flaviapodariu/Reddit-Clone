@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 import { HomeComponent } from './home/home.component';
 import { PostComponent } from './post/post.component';
 import { ViewPostComponent } from './view-post/view-post.component';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [AppComponent, routingComponents, HomeComponent, PostComponent, ViewPostComponent],
@@ -24,8 +25,9 @@ import { ViewPostComponent } from './view-post/view-post.component';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

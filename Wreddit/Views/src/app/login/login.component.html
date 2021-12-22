@@ -6,21 +6,21 @@
   <div class = "login-wrapper">
      <div class="title-cell">Login</div>
 
-     <div class="login-input-wrapper">  
+     <form class="login-input-wrapper" [formGroup]="loginForm" (ngSubmit)="onSubmit()" >  
        <mat-form-field class="email-box" appearance="fill">
          <mat-label>Email</mat-label>
-         <input matInput placeholder="pat@example.com" [formControl]="email" required>
+         <input matInput placeholder="pat@example.com" formControlName="email" [formControl]="email" required>
          <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
        </mat-form-field>
 
        <mat-form-field class="password-box" appearance="fill">
          <mat-label>Password</mat-label>
-         <input matInput type="password" placeholder="Password" required>
+         <input matInput type="password" formControlName="password" placeholder="Password" required>
          <mat-error> </mat-error> <!-- to be done -->
        </mat-form-field>
 
-       <button class="auth-button" mat-raised-button color="accent">Log In</button>
-     </div>
+       <button class="auth-button" type="submit" color="accent">Log In</button>
+      </form>
      
      <div class="lower-form"> New to Reddit?
        <div class="lower-link" routerLink="/signup">SIGN UP</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { AuthenticationService } from '../services/authentication.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,7 +9,7 @@ import {FormControl, Validators} from '@angular/forms';
 
 export class LoginComponent implements OnInit {
 
-  constructor() {
+  constructor(private service: AuthenticationService) {
    }
 
    email = new FormControl('', [Validators.required, Validators.email]);
@@ -18,6 +19,11 @@ export class LoginComponent implements OnInit {
 
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
+
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required])                 
+  });
   
   // password = new FormControl('', [Validators.required]);
   // getPasswordError(){
@@ -28,6 +34,11 @@ export class LoginComponent implements OnInit {
   // 
   // }
   
+  onSubmit(){
+    let credentials = this.loginForm.value;
+    this.service.login(credentials)
+        .subscribe(u=> alert('logged in'));
+  }
 
   ngOnInit(): void {
   }
