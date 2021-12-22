@@ -114,9 +114,8 @@ namespace Wreddit
             app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
 
-
+            app.UseAuthentication();
             app.UseRouting();
-            app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -124,6 +123,8 @@ namespace Wreddit
                 endpoints.MapControllers();
             });
 
+            app.UseCors(MyAllowSpecificOrigins);
+            
             try
             {
                 seed.SeedRoles().Wait();

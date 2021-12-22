@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Wreddit.Repositories;
 using Wreddit.Models.Entities;
 using Wreddit.Models.Entities.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Wreddit.Controllers
 {
@@ -21,6 +22,7 @@ namespace Wreddit.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> GetAllPosts()
         {
             List<Post> posts = await _repository.Post.GetAllPostsWithUsers(); // join on user table

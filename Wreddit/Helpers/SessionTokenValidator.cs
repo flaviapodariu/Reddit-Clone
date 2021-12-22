@@ -21,6 +21,8 @@ namespace Wreddit.Helpers
                 var jti = context.Principal.Claims.FirstOrDefault(c => c.Type.Equals(JwtRegisteredClaimNames.Jti)).Value;
 
                 var tokenInDb = await repository.SessionToken.GetByJTI(jti);
+                Console.WriteLine(tokenInDb.UserId);
+
                 if (tokenInDb != null && tokenInDb.ExpirationDate > DateTime.Now)
                 {
                     return;

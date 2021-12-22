@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 export interface PostResponse {
   id: number;
-  username: string;
+  userId: number;
   upvotes: number;
   downvotes: number;
   title: string;
