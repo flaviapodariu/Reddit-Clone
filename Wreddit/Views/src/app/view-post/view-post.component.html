@@ -7,26 +7,52 @@
       <button class="downvote">&#8681;</button>
       <!-- code for arrow down -->
     </div>
-    <div class="post-text">
-      <div class="autor-text">posted by autor 17 hours ago</div>
-      <h1>{{ post.title }}</h1>
-      <div>
-        {{ post.text }}
+    <div class="post-content">
+      <div class="post-text">
+        <div class="autor-text">posted by autor 17 hours ago</div>
+        <h1>{{ post.title }}</h1>
+        <div>
+          {{ post.text }}
+        </div>
+      </div>
+      <div class="lower-post-links-wrapper">
+        <div class="comment-count">0 Comments</div>
+        <div class="share-post-link">
+          <div class="share-icon">&#10532;</div>
+          Share
+        </div>
+        <div class="share-post-link">Save</div>
+      </div>
+      <div class="comment-form">
+        <!-- <mat-form-field floatLabel="never"> -->
+        <!-- <mat-label>Text</mat-label> -->
+        <textarea
+          class="comment-text"
+          matNativeControl
+          placeholder="What are your thoughts? "
+          [formControl]="content"
+        ></textarea>
+        <button mat-raised-button (click)="handleCreateCommentClick()">
+          Comment
+        </button>
+        <p>sort by: best</p>
+        <!-- </mat-form-field> -->
       </div>
     </div>
   </div>
-  <div class="lower-post-links-wrapper">
-    <div class="comment-count">0 Comments</div>
-
-    <div class="share-post-link">
-      <div class="share-icon">&#10532;</div>
-      Share
+  <div class="comments-container">
+    <div class="comment" *ngFor="let comment of comments">
+      <div class="comment-author">author <span>9 hr ago</span></div>
+      <div class="comment-text">{{ comment.content }}</div>
+      <div class="comment-votes">
+        <button class="upvote">&#8679;</button>
+        <!-- code for arrow up -->
+        <div class="vote-balance">10</div>
+        <button class="downvote">&#8681;</button>
+        <!-- code for arrow down -->
+        <a>Reply</a>
+        <a>Report</a>
+      </div>
     </div>
-    <div class="share-post-link">Save</div>
   </div>
-  <mat-form-field floatLabel="never" appearance="fill">
-    <mat-label>Text</mat-label>
-    <textarea class="text" matNativeControl></textarea>
-  </mat-form-field>
-  <div class="comments-container"></div>
 </div>
