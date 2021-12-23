@@ -1,31 +1,40 @@
 <div class="login-form">
   <div class="login-left-panel">
-    <img src="/assets/images/login-left-side.png" alt="login-panel">
+    <img src="/assets/images/login-left-side.png" alt="login-panel" />
   </div>
 
-  <div class = "login-wrapper">
-     <div class="title-cell">Login</div>
+  <div class="login-wrapper">
+    <div class="title-cell">Login</div>
 
-     <div class="login-input-wrapper">  
-       <mat-form-field class="email-box" appearance="fill">
-         <mat-label>Email</mat-label>
-         <input matInput placeholder="pat@example.com" [formControl]="email" required>
-         <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
-       </mat-form-field>
+    <div class="login-input-wrapper">
+      <mat-form-field class="email-box" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          placeholder="pat@example.com"
+          [formControl]="email"
+          required
+        />
+        <mat-error *ngIf="email.invalid">{{ getEmailError() }}</mat-error>
+      </mat-form-field>
 
-       <mat-form-field class="password-box" appearance="fill">
-         <mat-label>Password</mat-label>
-         <input matInput type="password" placeholder="Password" required>
-         <mat-error> </mat-error> <!-- to be done -->
-       </mat-form-field>
+      <mat-form-field class="password-box" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" placeholder="Password" required />
+        <mat-error> </mat-error>
+        <!-- to be done -->
+      </mat-form-field>
 
-       <button class="auth-button" mat-raised-button color="accent">Log In</button>
-     </div>
-     
-     <div class="lower-form"> New to Reddit?
-       <div class="lower-link" routerLink="/signup">SIGN UP</div>
-     </div>
+      <button class="auth-button" mat-raised-button color="accent">
+        Log In
+      </button>
+    </div>
+
+    <div class="lower-form">
+      New to Reddit?
+      <div class="lower-link" routerLink="/signup">SIGN UP</div>
+    </div>
   </div>
-  <div routerLink="/" class="close-button">&#x2715;</div> <!-- html code for close icon -->
+  <div routerLink="/" class="close-button">&#x2715;</div>
+  <!-- html code for close icon -->
 </div>
-

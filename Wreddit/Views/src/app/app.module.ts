@@ -8,11 +8,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { LoginComponent } from './login/login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { HomeComponent } from './home/home.component';
 import { PostComponent } from './post/post.component';
+import { Observable } from 'rxjs';
 import { ViewPostComponent } from './view-post/view-post.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { ViewPostComponent } from './view-post/view-post.component';
     HomeComponent,
     PostComponent,
     ViewPostComponent,
+    CreatePostComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,7 @@ import { ViewPostComponent } from './view-post/view-post.component';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

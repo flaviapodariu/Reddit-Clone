@@ -29,6 +29,9 @@ p {
   justify-content: space-between;
   background-color: #1a1a1b;
   height: 60px;
+  position: sticky;
+  top: 0;
+  width: 100%;
 }
 
 .navbar-brand {
@@ -44,12 +47,12 @@ p {
 }
 .account-control {
   // position: re;
-  height: 70%;
+  height: 65%;
+  align-self: center;
   display: flex;
   flex-direction: row;
   column-gap: 0.5vw;
   padding-right: 15px;
-  padding-top: 8px;
 }
 
 .account-control > button {

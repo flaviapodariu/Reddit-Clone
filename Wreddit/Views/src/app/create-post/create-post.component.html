@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>Create a post</h1>
+  <mat-form-field floatLabel="never">
+    <mat-label>Title</mat-label>
+    <input matInput [formControl]="title" required />
+  </mat-form-field>
+  <mat-form-field floatLabel="never" appearance="fill">
+    <mat-label>Text</mat-label>
+    <textarea
+      class="text"
+      matNativeControl
+      [formControl]="text"
+      required
+    ></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Community</mat-label>
+    <mat-select>
+      <mat-option value="Optiunea 1"> Optiunea 1 </mat-option>
+      <mat-option value="Optiunea 2"> Optiunea 2 </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button
+    class="create-post-btn"
+    mat-raised-button
+    (click)="handleCreatePostClick()"
+  >
+    POST
+  </button>
+</div>

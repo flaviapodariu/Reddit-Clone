@@ -13,6 +13,11 @@ export interface PostResponse {
     userName: string;
   };
 }
+export interface PostToCreate {
+  userId: number;
+  title: string;
+  text: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -30,5 +35,15 @@ export class PostsService {
     return fetch(`${this.apiUrl}/post/` + id, {
       method: 'GET',
     }).then((response) => response.json());
+  }
+  createPost(post: PostToCreate) {
+    return fetch(`${this.apiUrl}/post`, {
+      method: 'POST',
+      headers: {
+        // Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(post),
+    });
   }
 }
