@@ -57,5 +57,14 @@ namespace Wreddit.Controllers
             return Ok(newPost);
         }
 
+        [HttpPut]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> UpdateVotes([FromBody]VoteDTO dto)
+        {
+            await _repository.Post.UpdateVotes(dto);
+            await _repository.SaveAsync();
+            return Ok();
+        }
+
     }
 }

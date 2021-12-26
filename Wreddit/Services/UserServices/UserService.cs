@@ -38,7 +38,6 @@ namespace Wreddit.Services.UserServices
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(registerUser, UserRoleType.User);
-                //await _repository.SaveAsync();
 
                 return true;
             }

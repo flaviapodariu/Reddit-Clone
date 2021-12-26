@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PostResponse, PostsService } from '../posts.service';
+import { PostResponse, PostsService } from '../services/posts.service';
 
 @Component({
   selector: 'app-view-post',
@@ -34,7 +34,7 @@ export class ViewPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.postsService.getPostById(this.postId).then((response) => {
-      console.log(response);
+      console.log(response.body);
       this.post = response;
     });
   }

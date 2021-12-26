@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
-import { throwError, Observable } from 'rxjs';
-import {catchError} from 'rxjs/operators';
-import { LoginComponent } from '../login/login.component';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 export interface SignupData{
   email: string;
   userName: string;
@@ -16,26 +15,55 @@ export interface LoginData{
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthenticationService {
   private apiUrl = 'https://localhost:5001';
   constructor(private http: HttpClient) { }
 
-  register(newUser: SignupData): Observable<SignupData>{
-    return this.http.post<SignupData>(`${this.apiUrl}/signup`, JSON.stringify(newUser),
-     {
-         headers: new HttpHeaders({
-        'Content-Type': 'application/json-patch+json'
-      })
-    });  
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json-patch+json'
+    })
+  }  
+
+  register(newUser: SignupData){
+    return this.http.post(`${this.apiUrl}/signup`, JSON.stringify(newUser),
+                           this.httpOptions);  
   }
 
-  login(user: LoginData): Observable<LoginData>{
-    return this.http.post<LoginData>(`${this.apiUrl}/login`, JSON.stringify(user),
-    {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json-patch+json'
-    })
-  });
+  login(user: LoginData){
+   return this.http.post(`${this.apiUrl}/login`, JSON.stringify(user),
+                          this.httpOptions);
+  }
+  
+  logout(){
+    if(localStorage.getItem("token")){
+       localStorage.removeItem("token");
+       return true;
+    }
+    return false   
+  }
+
+  isLoggedIn(){
+    if(!localStorage.getItem("token"))
+       return false;
+
+    let jwtHelper: JwtHelperService = new JwtHelperService()
+    let token = localStorage.getItem("token");
+    return !jwtHelper.isTokenExpired(token!)   // token! = tells ts token can't be null
+  } 
+  
+  hasRole(wantedRole: string){
+    if(!localStorage.getItem("token"))
+       return false;
+    
+    let jwtHelper: JwtHelperService = new JwtHelperService()   
+    let token = localStorage.getItem("token");
+    return(jwtHelper.decodeToken(token!).role.includes(wantedRole));
+  }
+  
+  getToken(){
+    return localStorage.getItem("token");
   }
   
 }

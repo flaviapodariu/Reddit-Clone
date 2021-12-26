@@ -50,7 +50,7 @@ namespace Wreddit.Repositories
 
         public void Update(TEntity entity)
         {
-            _context.Set<TEntity>().Update(entity);
+             _context.Set<TEntity>().Update(entity);
         }
     }
 

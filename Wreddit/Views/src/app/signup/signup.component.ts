@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -8,29 +10,23 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private service: AuthenticationService) {
-   }
-  
-  emailCheck = new FormControl('', [Validators.required, Validators.email]);
-
-  getErrorMessage() {
-   if (this.emailCheck.hasError('required')) {
-     return 'You must enter a valid email';
-   }
-   return this.emailCheck.hasError('email') ? 'Not a valid email' : '';
- }
-
+  constructor(private authService: AuthenticationService, private router: Router) {}
 
   signupForm = new FormGroup({
-    email: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.email]),
     userName: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required])                 
+    password: new FormControl('', [Validators.required, Validators.minLength(8)])                 
   });
+  
   onSubmit(){
     let newUser = this.signupForm.value;
-    this.service.register(newUser)
-        .subscribe(u => {alert('success'); });
+    console.log(this.signupForm)
+    if(this.signupForm.valid)
+    this.authService.register(newUser)
+        .subscribe((res: any) => {alert(res);
+                    this.router.navigate(['/login']); });
   }
+  
   ngOnInit(): void {
   }
 

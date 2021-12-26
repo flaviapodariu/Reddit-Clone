@@ -14,6 +14,7 @@ namespace Wreddit.Repositories
         Task<List<Post>> GetAllPostsWithComments();
         Task<Post> GetPostWithComments(int id);
         Task<Post> GetPostWithUser(int id);
+        Task<Post> UpdateVotes(VoteDTO dto);
 
     }
 }

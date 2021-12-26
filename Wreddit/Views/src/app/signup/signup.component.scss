@@ -1,4 +1,3 @@
- body{filter:blur(8px)}
 .signup-form{
     position:absolute;
     background-color: white;
@@ -14,7 +13,7 @@
     border:2px grey;
     border-style: solid;
     border-radius: 5px;
-    z-index: 2;
+    z-index: 0;
 }
 
 .signup-left-panel{

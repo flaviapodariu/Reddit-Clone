@@ -6,20 +6,22 @@
   <div class = "login-wrapper">
      <div class="title-cell">Login</div>
 
-     <form class="login-input-wrapper" [formGroup]="loginForm" (ngSubmit)="onSubmit()" >  
+     <form class="login-input-wrapper" name="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()" >  
        <mat-form-field class="email-box" appearance="fill">
          <mat-label>Email</mat-label>
-         <input matInput placeholder="pat@example.com" formControlName="email" [formControl]="email" required>
-         <mat-error *ngIf="email.invalid">{{getEmailError()}}</mat-error>
+         <input matInput formControlName="email" placeholder="pat@example.com" required>
+         <mat-error *ngIf="loginForm.get('email').errors?.['required']">You must enter an email!</mat-error>
+         <mat-error *ngIf="loginForm.get('email').errors?.['email']">Please enter a valid email!</mat-error>
        </mat-form-field>
 
        <mat-form-field class="password-box" appearance="fill">
          <mat-label>Password</mat-label>
          <input matInput type="password" formControlName="password" placeholder="Password" required>
-         <mat-error> </mat-error> <!-- to be done -->
+         <mat-error *ngIf="loginForm.get('password').errors?.['required']">You must enter a password!</mat-error> 
+         <mat-error *ngIf="loginForm.get('password').errors?.['minlength']">Must be at least 8 characters!</mat-error>
        </mat-form-field>
 
-       <button class="auth-button" type="submit" color="accent">Log In</button>
+       <button class="auth-button" type="submit" mat-raised-button color="accent">Log In</button>
       </form>
      
      <div class="lower-form"> New to Reddit?

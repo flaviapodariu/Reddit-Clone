@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PostResponse } from '../posts.service';
+import { AuthenticationService } from '../services/authentication.service';
+import { PostResponse, PostsService } from '../services/posts.service';
 
 @Component({
   selector: 'app-post',
@@ -7,7 +8,7 @@ import { PostResponse } from '../posts.service';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-  constructor() {}
+  constructor(private postService: PostsService, private authService: AuthenticationService) {}
 
   @Input() post: PostResponse = {
     id: 0,
@@ -22,5 +23,11 @@ export class PostComponent implements OnInit {
       userName: '',
     },
   };
+
+  vote(postId: number, voteType: string){
+    if(this.authService.isLoggedIn() && this.authService.hasRole("User")){
+      this.postService.votePost(postId, voteType).subscribe((res: any)=> console.log(res));
+    }
+  }
   ngOnInit(): void {}
 }

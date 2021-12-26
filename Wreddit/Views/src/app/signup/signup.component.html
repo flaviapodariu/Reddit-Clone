@@ -1,32 +1,34 @@
 <div class="signup-form">
-    <div class="signup-left-panel">
-      <img src="/assets/images/login-left-side.png" alt="signup-panel">
-    </div>
+  <div class="signup-left-panel">
+    <img src="/assets/images/login-left-side.png" alt="signup-panel">
+  </div>
   
-    <div class = "signup-wrapper">
-       <div class="title-cell">Sign Up</div>
+  <div class = "signup-wrapper">
+     <div class="title-cell">Sign Up</div>
   
-       <form class="signup-input-wrapper" [formGroup]="signupForm" (ngSubmit)="onSubmit()">  
-         <mat-form-field class="email-box" appearance="fill">
-           <mat-label>Email</mat-label>
-           <input matInput placeholder="pat@example.com" formControlName="email" [formControl]="emailCheck" required>
-           <mat-error *ngIf="emailCheck.invalid">{{getErrorMessage()}}</mat-error>
-         </mat-form-field>
+     <form class="signup-input-wrapper" [formGroup]="signupForm" (ngSubmit)="onSubmit()">  
+        <mat-form-field class="email-box" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="pat@example.com" required>
+          <mat-error *ngIf="signupForm.get('email').errors?.['required']">You must enter an email!</mat-error>
+          <mat-error *ngIf="signupForm.get('email').errors?.['email']">Please enter a valid email!</mat-error>
+        </mat-form-field>
 
-         <mat-form-field class="username-box" appearance="fill">
-           <mat-label>Username</mat-label>
-           <input matInput type="text" formControlName="userName" placeholder="Username" required>
-           <mat-error></mat-error>
-         </mat-form-field> 
+        <mat-form-field class="username-box" appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" placeholder="Username" formControlName="userName" required>
+          <mat-error *ngIf="signupForm.get('userName').errors?.['required']">You must enter a username!</mat-error>
+        </mat-form-field> 
 
-         <mat-form-field class="password-box" appearance="fill">
-           <mat-label>Password</mat-label>
-           <input matInput type="password" formControlName="password" placeholder="Password" required>
-           <mat-error></mat-error>
-         </mat-form-field>
+        <mat-form-field class="password-box" appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" placeholder="Password" required>
+          <mat-error *ngIf="signupForm.get('password').errors?.['required']">You must enter a password!</mat-error>
+          <mat-error *ngIf="signupForm.get('password').errors?.['minlength']">Must be at least 8 characters!</mat-error>
+        </mat-form-field>
   
-         <button class="auth-button" type="submit" mat-raised-button color="accent">Sign Up</button>
-        </form>
+        <button class="auth-button" type="submit" mat-raised-button color="accent">Sign Up</button>
+      </form>
        
        <div class="lower-form"> Already a redditor?
          <div class="lower-link" routerLink="/login">LOG IN</div>

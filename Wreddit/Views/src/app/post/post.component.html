@@ -1,10 +1,10 @@
 <div class="post-box" routerLink="/">
   <div class="post-votes-details-wrapper">
     <div class="post-votes">
-      <button class="upvote">&#8679;</button>
+      <button class="upvote" (click)="vote(post.id, 'upvote')">&#8679;</button>
       <!-- code for arrow up -->
-      <div class="vote-balance">843</div>
-      <button class="downvote">&#8681;</button>
+      <div class="vote-balance">{{ post.upvotes - post.downvotes }}</div>
+      <button class="downvote" (click)="vote(post.id, 'downvote')">&#8681;</button>
       <!-- code for arrow down -->
     </div>
 
