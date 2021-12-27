@@ -22,7 +22,6 @@ namespace Wreddit.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "User")]
         public async Task<IActionResult> GetAllPosts()
         {
             List<Post> posts = await _repository.Post.GetAllPostsWithUsers(); // join on user table
@@ -50,7 +49,8 @@ namespace Wreddit.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePost(Post newPost)
+        [Authorize(Roles ="User")]
+        public async Task<IActionResult> CreatePost([FromBody]Post newPost)
         {
             _repository.Post.Create(newPost);
             await _repository.SaveAsync();

@@ -66,4 +66,9 @@ export class AuthenticationService {
     return localStorage.getItem("token");
   }
   
+  getUserId(){
+    let token = localStorage.getItem("token");
+    let jwtHelper: JwtHelperService = new JwtHelperService()  
+    return jwtHelper.decodeToken(token!).nameid;
+  }
 }

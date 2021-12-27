@@ -25,6 +25,10 @@ export class HomeComponent implements OnInit {
   }
 
   public goToPostPage(id: number): void {
+    
     this.router.navigateByUrl('/view-post/' + id);
+  }
+  public goToCreatePost(): void {
+    this.router.navigateByUrl('/create-post');
   }
 }

@@ -5,14 +5,11 @@ import { AuthenticationService } from '../services/authentication.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
-
 export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthenticationService, private router: Router) {}
-
-  private route = '';
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),

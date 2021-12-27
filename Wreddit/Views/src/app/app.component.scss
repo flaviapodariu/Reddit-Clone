@@ -24,28 +24,36 @@ p {
 .spacer {
   flex: 1;
 }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #1a1a1b;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+}
 
 .navbar-brand {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  // right: 0;
   padding-left: 15px;
-  height: 55px;
   display: flex;
   align-items: center;
-  background-color: #1a1a1b;
   color: white;
   font-weight: 600;
 }
 .account-control {
-  position: absolute;
+  // position: re;
+  height: 65%;
+  align-self: center;
   display: flex;
   flex-direction: row;
   column-gap: 0.5vw;
-  right: 0;
   padding-right: 15px;
-  padding-top: 8px;
 }
 
 .account-control > button {

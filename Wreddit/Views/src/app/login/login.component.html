@@ -3,8 +3,8 @@
     <img src="/assets/images/login-left-side.png" alt="login-panel">
   </div>
 
-  <div class = "login-wrapper">
-     <div class="title-cell">Login</div>
+  <div class="login-wrapper">
+    <div class="title-cell">Login</div>
 
      <form class="login-input-wrapper" name="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()" >  
        <mat-form-field class="email-box" appearance="fill">
@@ -21,13 +21,16 @@
          <mat-error *ngIf="loginForm.get('password').errors?.['minlength']">Must be at least 8 characters!</mat-error>
        </mat-form-field>
 
-       <button class="auth-button" type="submit" mat-raised-button color="accent">Log In</button>
-      </form>
-     
-     <div class="lower-form"> New to Reddit?
-       <div class="lower-link" routerLink="/signup">SIGN UP</div>
-     </div>
-  </div>
-  <div routerLink="/" class="close-button">&#x2715;</div> <!-- html code for close icon -->
-</div>
+      <button class="auth-button" type="submit" mat-raised-button color="accent">
+        Log In
+      </button>
+    </form>
 
+    <div class="lower-form">
+      New to Reddit?
+      <div class="lower-link" routerLink="/signup">SIGN UP</div>
+    </div>
+  </div>
+  <div routerLink="/" class="close-button">&#x2715;</div>
+  <!-- html code for close icon -->
+</div>

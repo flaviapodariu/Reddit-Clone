@@ -16,6 +16,12 @@ export interface PostResponse {
   };
 }
 
+export interface PostToCreate {
+  userId: number;
+  title: string;
+  text: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -25,7 +31,7 @@ export class PostsService {
 
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json-patch+json',
+      'Content-Type': 'application/json',
       'Authorization': `${this.authService.getToken()}`
     })
   }  
@@ -45,9 +51,28 @@ export class PostsService {
     }).then((response) => response.json());
   }
 
-  votePost(id: number, vote: string){
-   let data = {"postId": `${id}`, "voteType": vote};
+  votePost(postId: number, vote: string){
+   let user = this.authService.getUserId();
+   let data = {"postId": `${postId}`, "userId":`${user}`, "voteType": vote};
    console.log(JSON.stringify(data))
    return this.http.put(`${this.apiUrl}/post`, JSON.stringify(data), this.httpOptions)
+  }
+
+  // createPost(post: PostToCreate) {
+  //    console.log(post.userId);
+  //   return fetch(`${this.apiUrl}/post`, {
+  //     method: 'POST',
+  //     headers: {
+  //       // Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `${this.authService.getToken()}`
+  //     },
+      
+  //     body: JSON.stringify(post),
+  //   });
+  // }
+
+  createPost(post: PostToCreate){
+    return this.http.post(`${this.apiUrl}/post`, JSON.stringify(post), this.httpOptions);
   }
 }
