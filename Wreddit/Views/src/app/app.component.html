@@ -10,9 +10,9 @@
   </a>
   
   <div class="account-control">
-    <button  routerLink="/login" mat-stroked-button>Log In</button>
-    <button  routerLink="/signup" mat-stroked-button>Sign Up</button>
-    <!-- <button  routerLink="/" (click)="logout()" mat-stroked-button>Log Out</button> -->
+    <button *ngIf="!this.authService.status()" routerLink="/login" mat-stroked-button>Log In</button>
+    <button *ngIf="!this.authService.status()" routerLink="/signup" mat-stroked-button>Sign Up</button>
+    <button *ngIf="this.authService.status()"  routerLink="/" (click)="logout()" mat-stroked-button>Log Out</button>
   </div>
 </div>
 

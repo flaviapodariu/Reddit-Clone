@@ -27,11 +27,11 @@ export class AuthenticationService {
     })
   }  
 
-  public visibility = false;
-  status(){
+
+  status():boolean{
     if(this.isLoggedIn() && this.hasRole('User'))
-       this.visibility = true;
-    this.visibility = false;   
+       return true;
+    return false;     
 
   }
   register(newUser: SignupData){
@@ -47,7 +47,6 @@ export class AuthenticationService {
   logout(){
     if(localStorage.getItem("token")){
        localStorage.removeItem("token");
-       this.visibility = true;
     }
   }
 

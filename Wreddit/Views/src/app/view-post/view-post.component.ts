@@ -5,7 +5,7 @@ import {
   CommentsService,
   CommentToCreate,
   CommentResponse,
-} from '../comments.service';
+} from '../services/comments.service';
 import { FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 
