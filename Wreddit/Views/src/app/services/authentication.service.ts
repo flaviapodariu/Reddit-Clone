@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ThrowStmt } from '@angular/compiler';
 
 export interface SignupData{
   email: string;
@@ -22,10 +23,17 @@ export class AuthenticationService {
 
   private httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json-patch+json'
+      'Content-Type': 'application/json'
     })
   }  
 
+  public visibility = false;
+  status(){
+    if(this.isLoggedIn() && this.hasRole('User'))
+       this.visibility = true;
+    this.visibility = false;   
+
+  }
   register(newUser: SignupData){
     return this.http.post(`${this.apiUrl}/signup`, JSON.stringify(newUser),
                            this.httpOptions);  
@@ -39,9 +47,8 @@ export class AuthenticationService {
   logout(){
     if(localStorage.getItem("token")){
        localStorage.removeItem("token");
-       return true;
+       this.visibility = true;
     }
-    return false   
   }
 
   isLoggedIn(){
@@ -70,5 +77,10 @@ export class AuthenticationService {
     let token = localStorage.getItem("token");
     let jwtHelper: JwtHelperService = new JwtHelperService()  
     return jwtHelper.decodeToken(token!).nameid;
+  }
+  getUsername(){
+    let token = localStorage.getItem("token");
+    let jwtHelper: JwtHelperService = new JwtHelperService();
+    return jwtHelper.decodeToken(token!).email;
   }
 }

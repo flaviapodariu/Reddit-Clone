@@ -10,7 +10,7 @@ using Wreddit.Data;
 namespace Wreddit.Migrations
 {
     [DbContext(typeof(WredditContext))]
-    [Migration("20211222111905_InitialCreate")]
+    [Migration("20211228124128_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

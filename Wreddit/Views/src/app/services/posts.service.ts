@@ -36,11 +36,6 @@ export class PostsService {
     })
   }  
 
-  // getPosts() {
-  //   return fetch(`${this.apiUrl}/post`, {
-  //     method: 'GET',
-  //   }).then((response) => response.json()).catch((error) => console.log(error) );
-  // }
   getPosts(){
     return this.http.get(`${this.apiUrl}/post`, this.httpOptions)
   }
@@ -57,20 +52,6 @@ export class PostsService {
    console.log(JSON.stringify(data))
    return this.http.put(`${this.apiUrl}/post`, JSON.stringify(data), this.httpOptions)
   }
-
-  // createPost(post: PostToCreate) {
-  //    console.log(post.userId);
-  //   return fetch(`${this.apiUrl}/post`, {
-  //     method: 'POST',
-  //     headers: {
-  //       // Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `${this.authService.getToken()}`
-  //     },
-      
-  //     body: JSON.stringify(post),
-  //   });
-  // }
 
   createPost(post: PostToCreate){
     return this.http.post(`${this.apiUrl}/post`, JSON.stringify(post), this.httpOptions);

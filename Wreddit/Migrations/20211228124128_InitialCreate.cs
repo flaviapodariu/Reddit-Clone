@@ -7,6 +7,7 @@ namespace Wreddit.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+           
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -174,7 +175,7 @@ namespace Wreddit.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);     //no action
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -217,13 +218,13 @@ namespace Wreddit.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);  // not sure
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Comments_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -242,7 +243,7 @@ namespace Wreddit.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade); 
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_PostVotes_Posts_PostId",
                         column: x => x.PostId,
@@ -273,7 +274,7 @@ namespace Wreddit.Migrations
                         column: x => x.CommentId,
                         principalTable: "Comments",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
@@ -344,6 +345,8 @@ namespace Wreddit.Migrations
                 name: "IX_SessionTokens_UserId",
                 table: "SessionTokens",
                 column: "UserId");
+
+ 
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

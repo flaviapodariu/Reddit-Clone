@@ -8,7 +8,7 @@
       <!-- code for arrow down -->
     </div>
 
-    <div class="post-details">
+    <div class="post-details" (click)="goToPostPage(post.id)">
       <div class="author-timestamp-wrapper">
         <div class="post-author">{{ post.user.userName }}</div>
 

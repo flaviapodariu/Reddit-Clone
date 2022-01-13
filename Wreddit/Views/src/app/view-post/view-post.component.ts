@@ -69,32 +69,32 @@ export class ViewPostComponent implements OnInit {
            parentId: 0,
            userId: this.authService.getUserId(),
            content: this.content.value,
-           postId: this.postId,
+           postId: this.postId,       
          };
 
-         this.commentService.createComment(comment).then((response) => {
-            const newComment: CommentResponse = {
-          // comment is of type commentToCreate so I need to change the type in commentResponse in order to add it to comments and update the UI
-          ...comment,
-             upvotes: 0,
-             downvotes: 0,
-             user: {
-              id: NaN,
-              userName: '',
-              email: '',
-             },
-            };
-         this.comments.unshift(newComment); //adds at the start of the array
-         });
-       }
-       this.content.reset(); // resets the value of the textarea to null
-  }
-
+         this.commentService.createComment(comment).subscribe((res: any)=> {
+           const newComment: CommentResponse = {
+                  // comment is of type commentToCreate so I need to change the type in commentResponse in order to add it to comments and update the UI
+                  ...comment,
+                     upvotes: 0,
+                     downvotes: 0,
+                     user: {
+                      id: this.authService.getUserId(),
+                      userName: this.authService.getUsername(),
+                      email: '',
+                     },
+                    };
+                    console.log(newComment);
+                    this.comments.unshift(newComment);
+                    this.content.reset();
+                  })
+        }
+      }
+      
   vote(postId: number, voteType: string){
     if(this.authService.isLoggedIn() && this.authService.hasRole("User")){
       this.postsService.votePost(postId, voteType).subscribe((res: any)=> console.log(res));
     }
     else this.router.navigate(['/login']);
   }
-
 }

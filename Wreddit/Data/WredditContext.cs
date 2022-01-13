@@ -53,8 +53,8 @@ namespace Wreddit.Data
             {
                 ur.HasKey(ur => new { ur.PostId, ur.UserId });
 
-                ur.HasOne(ur => ur.Post).WithMany(r => r.PostVotes).HasForeignKey(ur => ur.PostId);
-                ur.HasOne(ur => ur.User).WithMany(u => u.PostVotes).HasForeignKey(ur => ur.UserId);
+                ur.HasOne(ur => ur.Post).WithMany(r => r.PostVotes).HasForeignKey(ur => ur.PostId).OnDelete(DeleteBehavior.Cascade);
+                ur.HasOne(ur => ur.User).WithMany(u => u.PostVotes).HasForeignKey(ur => ur.UserId).OnDelete(DeleteBehavior.Cascade);
 
 
             });
@@ -63,7 +63,7 @@ namespace Wreddit.Data
             {
                 ur.HasKey(ur => new { ur.CommentId, ur.UserId });
 
-                ur.HasOne(ur => ur.Comment).WithMany(r => r.CommentsVotes).HasForeignKey(ur => ur.CommentId);
+                ur.HasOne(ur => ur.Comment).WithMany(r => r.CommentsVotes).HasForeignKey(ur => ur.CommentId).OnDelete(DeleteBehavior.Cascade);
                 ur.HasOne(ur => ur.User).WithMany(u => u.CommentsVotes).HasForeignKey(ur => ur.UserId);
             });
 

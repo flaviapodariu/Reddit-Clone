@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,13 @@ namespace Wreddit.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles="User")]
         public async Task<IActionResult> CreateComment(Comment comm)
         {
             _repository.Comment.Create(comm);
             await _repository.SaveAsync();
-            return Ok(comm);
+            var commToReturn = new CommentDTO(comm);
+            return Ok(commToReturn);
         }
         [HttpGet("{PostId}")]
         public async Task<IActionResult> GetCommentsFromPost(int PostId)

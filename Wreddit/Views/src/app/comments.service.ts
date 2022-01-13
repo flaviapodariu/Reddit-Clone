@@ -1,4 +1,6 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthenticationService } from './services/authentication.service';
 
 export interface CommentResponse {
   parentId: number;
@@ -27,7 +29,8 @@ export interface CommentToCreate {
 export class CommentsService {
   private apiUrl = 'https://localhost:5001';
 
-  constructor() {}
+  constructor(private http: HttpClient, private authService: AuthenticationService) {}
+
 
   getCommentsFromPost(postId: number) {
     return fetch(`${this.apiUrl}/comment/` + postId, {
@@ -35,14 +38,16 @@ export class CommentsService {
     }).then((response) => response.json());
   }
 
-  createComment(comment: CommentToCreate) {
-    return fetch(`${this.apiUrl}/comment`, {
-      method: 'POST',
-      headers: {
-        // Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(comment),
-    });
+
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `${this.authService.getToken()}`
+    })
+  } 
+
+  createComment(comment: CommentToCreate){
+    return this.http.post(`${this.apiUrl}/comment`, JSON.stringify(comment), this.httpOptions);
   }
+
 }

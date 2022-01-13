@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostsService, PostResponse } from '../services/posts.service';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -9,13 +10,15 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   posts: PostResponse[] = [];
-  constructor(private postsService: PostsService, private router: Router) {}
-
+  constructor(private postsService: PostsService,
+              private authService: AuthenticationService,
+              private router: Router) {}
+  
   ngOnInit(): void {
     // this.postsService.getPosts().then((response: PostResponse[]) => {
     //   this.posts = response;
     // });
-
+    
     this.postsService.getPosts().subscribe((res: any) =>{
       console.log(res);
       if(res)
@@ -24,11 +27,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public goToPostPage(id: number): void {
-    
-    this.router.navigateByUrl('/view-post/' + id);
-  }
   public goToCreatePost(): void {
     this.router.navigateByUrl('/create-post');
   }
 }
+
+

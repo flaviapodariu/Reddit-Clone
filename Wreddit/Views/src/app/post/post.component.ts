@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { PostResponse, PostsService } from '../services/posts.service';
 
@@ -8,7 +9,7 @@ import { PostResponse, PostsService } from '../services/posts.service';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-  constructor(private postService: PostsService, private authService: AuthenticationService) {}
+  constructor(private postService: PostsService, private router: Router, private authService: AuthenticationService) {}
 
   @Input() post: PostResponse = {
     id: 0,
@@ -28,6 +29,11 @@ export class PostComponent implements OnInit {
     if(this.authService.isLoggedIn() && this.authService.hasRole("User")){
       this.postService.votePost(postId, voteType).subscribe((res: any)=> console.log(res));
     }
+  }
+
+  public goToPostPage(id: number): void {
+    
+    this.router.navigateByUrl('/view-post/' + id);
   }
   ngOnInit(): void {}
 }
