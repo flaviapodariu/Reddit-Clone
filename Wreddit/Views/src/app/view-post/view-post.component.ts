@@ -34,7 +34,7 @@ export class ViewPostComponent implements OnInit {
   constructor(
     private activateRoute: ActivatedRoute,
     private router: Router,
-    private postsService: PostsService,
+    private postService: PostsService,
     private authService: AuthenticationService,
     private commentService: CommentsService
   ) {
@@ -43,7 +43,7 @@ export class ViewPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.postsService.getPostById(this.postId).then((response) => {
+    this.postService.getPostById(this.postId).then((response) => {
       // the the post the user clicked on
       this.post = response;
     });
@@ -57,7 +57,7 @@ export class ViewPostComponent implements OnInit {
   handleCreateCommentClick(): void {
      // when the user clicks on the add comment button
 
-    if(!this.authService.isLoggedIn() || !this.authService.hasRole("User"))
+    if(!this.authService.authStatus())
        {
          this.router.navigate(['/login']);
          alert("You have to be logged in to comment");
@@ -91,9 +91,16 @@ export class ViewPostComponent implements OnInit {
         }
       }
       
-  vote(postId: number, voteType: string){
-    if(this.authService.isLoggedIn() && this.authService.hasRole("User")){
-      this.postsService.votePost(postId, voteType).subscribe((res: any)=> console.log(res));
+  votePost(postId: number, voteType: string){
+    if(this.authService.authStatus()){
+      this.postService.votePost(postId, voteType).subscribe((res: any)=> console.log(res));
+    }
+    else this.router.navigate(['/login']);
+  }
+
+  voteComment(commentId: number, voteType: string){
+    if(this.authService.authStatus()){
+      this.commentService.voteComment(commentId, voteType).subscribe((res: any)=> console.log(res));
     }
     else this.router.navigate(['/login']);
   }

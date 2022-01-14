@@ -26,7 +26,7 @@ export class PostComponent implements OnInit {
   };
 
   vote(postId: number, voteType: string){
-    if(this.authService.isLoggedIn() && this.authService.hasRole("User")){
+    if(this.authService.authStatus()){
       this.postService.votePost(postId, voteType).subscribe((res: any)=> console.log(res));
     }
   }

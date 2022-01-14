@@ -13,6 +13,8 @@ namespace Wreddit.Repositories
         IPostRepository Post { get; }
         ISessionTokenRepository SessionToken { get; }
         ICommentRepository Comment { get; }
+        IPostVotesRepository PostVotes { get; }
+        ICommentVotesRepository CommentVotes { get; }
         Task SaveAsync();
     }
 }

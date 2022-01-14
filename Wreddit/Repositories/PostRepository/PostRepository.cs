@@ -35,7 +35,7 @@ namespace Wreddit.Repositories
         }
 
    
-        public async Task<Post> UpdateVotes(VoteDTO dto)
+        public async Task<Post> UpdatePostVotes(PostVoteDTO dto)
         {
             var post = await _context.Posts.FindAsync(dto.PostId);
             var userVote = await _context.PostVotes.FindAsync(dto.PostId, dto.UserId);

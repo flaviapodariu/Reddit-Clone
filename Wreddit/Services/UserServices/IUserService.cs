@@ -10,5 +10,6 @@ namespace Wreddit.Services.UserServices
     {
         Task<bool> RegisterUserAsync(RegisterUserDTO dto);
         Task<string> LoginUser(LoginUserDTO dto);
+        bool ValidateAdminRole(string token);
     }
 }

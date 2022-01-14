@@ -8,6 +8,8 @@ using Wreddit.Repositories;
 using Wreddit.Models.Entities;
 using Wreddit.Models.Entities.DTOs;
 using Microsoft.AspNetCore.Authorization;
+using Wreddit.Services.UserServices;
+
 
 namespace Wreddit.Controllers
 {
@@ -16,9 +18,12 @@ namespace Wreddit.Controllers
     public class PostController : ControllerBase
     {
         private readonly IRepositoryWrapper _repository;
-        public PostController(IRepositoryWrapper  repository)
+        private readonly IUserService _userService;
+        public PostController(IRepositoryWrapper  repository,
+                              IUserService userService)
         {
             _repository = repository;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -48,8 +53,8 @@ namespace Wreddit.Controllers
             return Ok(postToReturn);
         }
 
-        [HttpPost]
-        [Authorize(Roles ="User")]
+        [HttpPost] 
+        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> CreatePost([FromBody]Post newPost)
         {
             _repository.Post.Create(newPost);
@@ -58,10 +63,42 @@ namespace Wreddit.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "User")]
-        public async Task<IActionResult> UpdateVotes([FromBody]VoteDTO dto)
+        [Authorize(Roles = "User, Admin")]
+        public async Task<IActionResult> UpdateVotes([FromBody]PostVoteDTO dto)
         {
-            await _repository.Post.UpdateVotes(dto);
+            await _repository.Post.UpdatePostVotes(dto);
+            await _repository.SaveAsync();
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = "User, Admin")]
+        public async Task<IActionResult> DeletePost([FromBody] DeleteDTO dto)
+        {
+            var postToDelete = await _repository.Post.GetByIdAsync(dto.Id);
+            try
+            {
+                if (postToDelete.UserId == dto.UserId || _userService.ValidateAdminRole(dto.Token))
+                {
+
+                    _repository.PostVotes.DeleteById(dto.Id);
+
+                    var comments = await _repository.Comment.GetCommentsFromPost(dto.Id);
+                    foreach(var comm in comments)
+                    {
+                        _repository.CommentVotes.DeleteById(comm.Id);
+                    }
+
+                    _repository.Post.Delete(postToDelete);
+
+                }
+                    
+            }
+            catch(NullReferenceException e)
+            {
+                Console.WriteLine($"Post does not exist or was not provided: {e}");
+            }
+
             await _repository.SaveAsync();
             return Ok();
         }

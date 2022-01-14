@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Wreddit.Models.Entities;
 using Wreddit.Models.Entities.DTOs;
 using Wreddit.Repositories;
+using Wreddit.Services.UserServices;
 
 namespace Wreddit.Controllers
 {
@@ -16,14 +17,17 @@ namespace Wreddit.Controllers
     public class CommentController : ControllerBase
     {
         private readonly IRepositoryWrapper _repository;
+        private readonly IUserService _userService;
 
-        public CommentController(IRepositoryWrapper repository)
+        public CommentController(IRepositoryWrapper repository,
+                                  IUserService userService)
         {
             _repository = repository;
+            _userService = userService;
         }
 
         [HttpPost]
-        [Authorize(Roles="User")]
+        [Authorize(Roles="User, Admin")]
         public async Task<IActionResult> CreateComment(Comment comm)
         {
             _repository.Comment.Create(comm);
@@ -46,5 +50,40 @@ namespace Wreddit.Controllers
             }
             return Ok(commentsToReturn);
         }
+
+        [HttpPut]
+        [Authorize(Roles = "User, Admin")]
+        public async Task<IActionResult> UpdateVotes([FromBody] CommentVoteDTO dto)
+        {
+            await _repository.Comment.UpdateCommentVotes(dto);
+            await _repository.SaveAsync();
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = "User, Admin")]
+        public async Task<IActionResult> DeleteComment([FromBody] DeleteDTO dto)
+        {
+            var commToDelete = await _repository.Comment.GetByIdAsync(dto.Id);
+            try
+            {
+                if (commToDelete.UserId == dto.UserId || _userService.ValidateAdminRole(dto.Token))
+                {
+
+                    _repository.CommentVotes.DeleteById(dto.Id);
+                    _repository.Comment.Delete(commToDelete);
+
+                }
+
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine($"Post does not exist or was not provided: {e}");
+            }
+
+            await _repository.SaveAsync();
+            return Ok();
+        }
     }
+    
 }
