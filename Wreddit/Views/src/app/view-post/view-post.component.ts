@@ -99,8 +99,8 @@ export class ViewPostComponent implements OnInit {
     }
   }
 
-  vote(postId: number, voteType: number) {
-    if (this.authService.isLoggedIn() && this.authService.hasRole('User')) {
+  votePost(postId: number, voteType: number) {
+    if (this.authService.authStatus()) {
       this.postService
         .votePost(postId, voteType)
         .subscribe((res: PostVote) => {
@@ -133,5 +133,12 @@ export class ViewPostComponent implements OnInit {
           }
         });
     }
+  }
+
+  voteComment(commentId: number, voteType: string){
+    if(this.authService.authStatus()){
+      this.commentService.voteComment(commentId, voteType).subscribe((res: any)=> console.log(res));
+    }
+    else this.router.navigate(['/login']);
   }
 }

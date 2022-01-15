@@ -2,28 +2,28 @@
   <div class="post-container">
     <div class="post-votes">
       <ng-container *ngIf="isVoted === 1">
-        <button class="upvote upvoted" (click)="vote(post.id, 1)">
+        <button class="upvote upvoted" (click)="votePost(post.id, 1)">
           &#8679;
         </button>
         <!-- code for arrow up -->
         <div class="vote-balance">{{ post.upvotes - post.downvotes }}</div>
-        <button class="downvote" (click)="vote(post.id, -1)">&#8681;</button>
+        <button class="downvote" (click)="votePost(post.id, -1)">&#8681;</button>
       </ng-container>
 
       <ng-container *ngIf="isVoted === -1">
-        <button class="upvote" (click)="vote(post.id, 1)">&#8679;</button>
+        <button class="upvote" (click)="votePost(post.id, 1)">&#8679;</button>
         <!-- code for arrow up -->
         <div class="vote-balance">{{ post.upvotes - post.downvotes }}</div>
-        <button class="downvote downvoted" (click)="vote(post.id, -1)">
+        <button class="downvote downvoted" (click)="votePost(post.id, -1)">
           &#8681;
         </button>
       </ng-container>
 
       <ng-container *ngIf="isVoted === 0">
-        <button class="upvote" (click)="vote(post.id, 1)">&#8679;</button>
+        <button class="upvote" (click)="votePost(post.id, 1)">&#8679;</button>
         <!-- code for arrow up -->
         <div class="vote-balance">{{ post.upvotes - post.downvotes }}</div>
-        <button class="downvote" (click)="vote(post.id, -1)">&#8681;</button>
+        <button class="downvote" (click)="votePost(post.id, -1)">&#8681;</button>
       </ng-container>
       <!-- code for arrow down -->
     </div>

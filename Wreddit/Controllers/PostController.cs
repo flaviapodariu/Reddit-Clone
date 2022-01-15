@@ -68,7 +68,7 @@ namespace Wreddit.Controllers
         {
             await _repository.Post.UpdatePostVotes(dto);
             await _repository.SaveAsync();
-            return Ok();
+            return Ok(dto);
         }
 
         [HttpDelete]
@@ -103,7 +103,7 @@ namespace Wreddit.Controllers
             return Ok(dto);
         }
         [HttpGet]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User, Admin")]
         [Route("votes/{id}")]
         public async Task<IActionResult> GetPostVotesFromUser(int id)
         {

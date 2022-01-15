@@ -37,8 +37,8 @@ export class PostComponent implements OnInit {
   @Input()
   public postVotes!: PostVote[];
 
-  vote(postId: number, voteType: number) {
-    if (this.authService.isLoggedIn() && this.authService.hasRole('User')) {
+  votePost(postId: number, voteType: number) {
+    if (this.authService.authStatus()) {
       this.postsService
         .votePost(postId, voteType)
         .subscribe((res: PostVote) => {
