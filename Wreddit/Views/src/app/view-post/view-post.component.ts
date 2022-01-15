@@ -85,6 +85,7 @@ export class ViewPostComponent implements OnInit {
         const newComment: CommentResponse = {
           // comment is of type commentToCreate so I need to change the type in commentResponse in order to add it to comments and update the UI
           ...comment,
+          id: res.id,
           upvotes: 0,
           downvotes: 0,
           user: {

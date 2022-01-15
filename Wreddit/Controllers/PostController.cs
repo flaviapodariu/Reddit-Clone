@@ -62,14 +62,6 @@ namespace Wreddit.Controllers
             return Ok(newPost);
         }
 
-        [HttpPut]
-        [Authorize(Roles = "User, Admin")]
-        public async Task<IActionResult> UpdateVotes([FromBody]PostVoteDTO dto)
-        {
-            await _repository.Post.UpdatePostVotes(dto);
-            await _repository.SaveAsync();
-            return Ok(dto);
-        }
 
         [HttpDelete]
         [Authorize(Roles = "User, Admin")]
@@ -101,14 +93,6 @@ namespace Wreddit.Controllers
 
             await _repository.SaveAsync();
             return Ok(dto);
-        }
-        [HttpGet]
-        [Authorize(Roles = "User, Admin")]
-        [Route("votes/{id}")]
-        public async Task<IActionResult> GetPostVotesFromUser(int id)
-        {
-            List<PostVotes> votes = await _repository.User.GetUsersPostVotes(id);
-            return Ok(votes);
         }
     }
 }

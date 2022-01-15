@@ -68,7 +68,7 @@ export class PostsService {
     let user = this.authService.getUserId();
     let data = { postId: `${postId}`, userId: `${user}`, voteType: vote };
     return this.http.put<PostVote>(
-      `${this.apiUrl}/post`,
+      `${this.apiUrl}/post-votes`,
       JSON.stringify(data),
       this.httpOptions
     );
@@ -76,7 +76,7 @@ export class PostsService {
   getPostVotesFromUser() {
     let userId = this.authService.getUserId();
     return this.http.get<PostVote[]>(
-      `${this.apiUrl}/post/votes/${userId}`,
+      `${this.apiUrl}/post-votes/${userId}`,
       this.httpOptions
     );
   }

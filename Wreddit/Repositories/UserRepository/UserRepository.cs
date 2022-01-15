@@ -58,16 +58,7 @@ namespace Wreddit.Repositories
                 .FirstOrDefaultAsync(u => u.Id.Equals(id));
         }
 
-        public async Task<List<PostVotes>> GetUsersPostVotes(int id) // returns the posts the user voted on 
-        {
-            return await _context.PostVotes.Where(vote => vote.UserId == id).ToListAsync();
-        }
-
-        public async Task<List<CommentVotes>> GetUsersCommentVotes(int id) // returns the comments the user voted on 
-        {
-            return await _context.CommentVotes.Where(vote => vote.UserId == id).ToListAsync();
-
-        }
+    
     }
 }
 

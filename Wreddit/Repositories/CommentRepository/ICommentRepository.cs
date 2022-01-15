@@ -10,6 +10,6 @@ namespace Wreddit.Repositories
     public interface ICommentRepository : IGenericRepository<Comment>
     {
         Task<List<Comment>> GetCommentsFromPost(int PostId);
-        Task<Comment> UpdateCommentVotes(CommentVoteDTO dto);
+        
     }
 }

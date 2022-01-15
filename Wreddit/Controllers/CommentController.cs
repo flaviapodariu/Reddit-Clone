@@ -51,15 +51,6 @@ namespace Wreddit.Controllers
             return Ok(commentsToReturn);
         }
 
-        [HttpPut]
-        [Authorize(Roles = "User, Admin")]
-        public async Task<IActionResult> UpdateVotes([FromBody] CommentVoteDTO dto)
-        {
-            await _repository.Comment.UpdateCommentVotes(dto);
-            await _repository.SaveAsync();
-            return Ok();
-        }
-
         [HttpDelete]
         [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> DeleteComment([FromBody] DeleteDTO dto)

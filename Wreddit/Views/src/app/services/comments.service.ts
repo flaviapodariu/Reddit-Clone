@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 
 export interface CommentResponse {
+  id: number;
   parentId: number;
   userId: number;
   content: string;
@@ -54,6 +55,6 @@ export class CommentsService {
     let user = this.authService.getUserId();
     let data = {"commentId": `${commentId}`, "userId":`${user}`, "voteType": vote};
     console.log(JSON.stringify(data))
-    return this.http.put(`${this.apiUrl}/comment`, JSON.stringify(data), this.httpOptions)
+    return this.http.put(`${this.apiUrl}/comment-votes`, JSON.stringify(data), this.httpOptions)
    }
 }

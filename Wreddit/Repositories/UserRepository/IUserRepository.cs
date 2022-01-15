@@ -13,8 +13,6 @@ namespace Wreddit.Repositories
         Task<List<UsersInfoDTO>> GetAllUsers();
         Task<User> GetUserByEmail(string email);
         Task<User> GetByIdWithRoles(int id);
-        Task<List<PostVotes>>  GetUsersPostVotes(int id);
-        Task<List<CommentVotes>> GetUsersCommentVotes(int id);
 
     }
 }
