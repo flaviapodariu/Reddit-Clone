@@ -1,0 +1,8 @@
+<div *ngFor="let group of users">
+    <div *ngFor="let user of group.userData">
+       {{user.item1}}
+       {{user.item2}}
+    </div>
+  </div>
+
+<button class="getb" (click)="this.getAll()">get emm</button>  

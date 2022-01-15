@@ -67,10 +67,10 @@
       </div>
       <div class="comment-text">{{ comment.content }}</div>
       <div class="comment-votes">
-        <button class="upvote">&#8679;</button>
+        <button class="upvote" (click)="voteComment(post.id, 'upvote')">&#8679;</button>
         <!-- code for arrow up -->
-        <div class="vote-balance">10</div>
-        <button class="downvote">&#8681;</button>
+        <div class="vote-balance">{{comment.upvotes - comment.downvotes}}</div>
+        <button class="downvote" (click)="voteComment(post.id, 'downvote')">&#8681;</button>
         <!-- code for arrow down -->
         <a>Reply</a>
         <a>Report</a>

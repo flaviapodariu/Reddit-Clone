@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using Wreddit.Models.Constants;
@@ -18,6 +19,7 @@ namespace Wreddit.Services.UserServices
     {
         private readonly UserManager<User> _userManager;
         private readonly IRepositoryWrapper _repository;
+        private readonly string key = "this is my custom secret key for auth";
 
         public UserService(UserManager<User> userManager,
                            IRepositoryWrapper repository)
@@ -37,7 +39,7 @@ namespace Wreddit.Services.UserServices
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(registerUser, UserRoleType.User);
+                await _userManager.AddToRoleAsync(registerUser, UserRoleType.Admin);
 
                 return true;
             }
@@ -59,7 +61,7 @@ namespace Wreddit.Services.UserServices
                 var newJti = Guid.NewGuid().ToString();
 
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this is my custom secret key for auth"));
+                var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
 
                 var token = GenerateJwtToken(signinKey, user, roles, tokenHandler, newJti);
 
@@ -96,6 +98,15 @@ namespace Wreddit.Services.UserServices
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return token;
+        }
+
+        public bool ValidateAdminRole(string token)
+        {
+            var jwtToken = new JwtSecurityToken(token);
+            var role = jwtToken.Claims.First(claim => claim.Type == "role").Value;
+            if (role.ToLower() == "admin".ToLower())
+                return true;
+            return false;
         }
     }
 }

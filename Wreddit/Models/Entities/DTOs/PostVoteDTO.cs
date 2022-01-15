@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Wreddit.Models.Entities.DTOs
 {
-    public class VoteDTO
+    public class PostVoteDTO
     {
         public int PostId { get; set; }
         public int UserId { get; set; }

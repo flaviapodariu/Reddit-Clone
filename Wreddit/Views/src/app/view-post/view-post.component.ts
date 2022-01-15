@@ -39,7 +39,7 @@ export class ViewPostComponent implements OnInit {
   constructor(
     private activateRoute: ActivatedRoute,
     private router: Router,
-    private postsService: PostsService,
+    private postService: PostsService,
     private authService: AuthenticationService,
     private commentService: CommentsService
   ) {
@@ -47,11 +47,11 @@ export class ViewPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.postsService.getPostById(this.postId).then((response) => {
+    this.postService.getPostById(this.postId).then((response) => {
       // the the post the user clicked on
       this.post = response;
     });
-    this.postsService.getPostVotesFromUser().subscribe((res: PostVote[]) => {
+    this.postService.getPostVotesFromUser().subscribe((res: PostVote[]) => {
       let postVote = res.find((vote) => vote.postId === this.post.id); // checks if the post is voted in postVotes
       if (postVote) {
         this.isVoted = postVote.voteType;
@@ -66,10 +66,11 @@ export class ViewPostComponent implements OnInit {
   handleCreateCommentClick(): void {
     // when the user clicks on the add comment button
 
-    if (!this.authService.isLoggedIn() || !this.authService.hasRole('User')) {
-      this.router.navigate(['/login']);
-      alert('You have to be logged in to comment');
-    }
+    if(!this.authService.authStatus())
+       {
+         this.router.navigate(['/login']);
+         alert("You have to be logged in to comment");
+       }
 
     if (this.content.value) {
       // if the comment is not empty
@@ -100,7 +101,7 @@ export class ViewPostComponent implements OnInit {
 
   vote(postId: number, voteType: number) {
     if (this.authService.isLoggedIn() && this.authService.hasRole('User')) {
-      this.postsService
+      this.postService
         .votePost(postId, voteType)
         .subscribe((res: PostVote) => {
           if (this.isVoted === 0) {

@@ -49,5 +49,11 @@ export class CommentsService {
   createComment(comment: CommentToCreate){
     return this.http.post(`${this.apiUrl}/comment`, JSON.stringify(comment), this.httpOptions);
   }
-
+  
+  voteComment(commentId: number, vote: string){
+    let user = this.authService.getUserId();
+    let data = {"commentId": `${commentId}`, "userId":`${user}`, "voteType": vote};
+    console.log(JSON.stringify(data))
+    return this.http.put(`${this.apiUrl}/comment`, JSON.stringify(data), this.httpOptions)
+   }
 }

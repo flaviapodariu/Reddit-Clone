@@ -13,6 +13,10 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'view-post/:id', component: ViewPostComponent },
   { path: 'create-post', component: CreatePostComponent, canActivate: [AuthGuard] },
+  { 
+    path: 'restricted', 
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  }
 ];
 
 @NgModule({

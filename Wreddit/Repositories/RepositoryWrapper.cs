@@ -13,6 +13,8 @@ namespace Wreddit.Repositories
         private IPostRepository _post;
         private ISessionTokenRepository _sessionToken;
         private ICommentRepository _comment;
+        private IPostVotesRepository _postvotes;
+        private ICommentVotesRepository _commvotes;
      
         public RepositoryWrapper(WredditContext context)
         {
@@ -54,6 +56,25 @@ namespace Wreddit.Repositories
                 if (_comment == null)
                     _comment = new CommentRepository(_context);
                 return _comment;
+            }
+        }
+
+        public IPostVotesRepository PostVotes
+        {
+            get
+            {
+                if (_postvotes == null)
+                    _postvotes = new PostVotesRepository(_context);
+                return _postvotes;
+            }
+        }
+        public ICommentVotesRepository CommentVotes
+        {
+            get
+            {
+                if (_commvotes == null)
+                    _commvotes = new CommentVotesRepository(_context);
+                return _commvotes;
             }
         }
         public async Task SaveAsync()

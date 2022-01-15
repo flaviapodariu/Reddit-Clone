@@ -28,8 +28,8 @@ export class AuthenticationService {
   }  
 
 
-  status():boolean{
-    if(this.isLoggedIn() && this.hasRole('User'))
+  authStatus():boolean{
+    if(this.isLoggedIn() && this.hasRole('User') || this.hasRole('Admin'))
        return true;
     return false;     
 
