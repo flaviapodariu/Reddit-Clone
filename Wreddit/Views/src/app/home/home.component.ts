@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PostsService, PostResponse } from '../services/posts.service';
+import {
+  PostsService,
+  PostResponse,
+  PostVote,
+} from '../services/posts.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 
@@ -10,20 +14,24 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class HomeComponent implements OnInit {
   posts: PostResponse[] = [];
-  constructor(private postsService: PostsService,
-              private authService: AuthenticationService,
-              private router: Router) {}
-  
+  postVotes!: PostVote[];
+  constructor(
+    private postsService: PostsService,
+    private authService: AuthenticationService,
+    private router: Router
+  ) {}
+
   ngOnInit(): void {
     // this.postsService.getPosts().then((response: PostResponse[]) => {
     //   this.posts = response;
     // });
-    
-    this.postsService.getPosts().subscribe((res: any) =>{
-      console.log(res);
-      if(res)
-        this.posts = res;
-      else alert("You are not authorized!");  
+
+    this.postsService.getPosts().subscribe((res: any) => {
+      if (res) this.posts = res;
+      else alert('You are not authorized!');
+    });
+    this.postsService.getPostVotesFromUser().subscribe((res: PostVote[]) => {
+      this.postVotes = res;
     });
   }
 
@@ -31,5 +39,3 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/create-post');
   }
 }
-
-

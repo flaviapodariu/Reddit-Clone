@@ -2,9 +2,13 @@
   <button class="create-post-btn" (click)="goToCreatePost()" mat-raised-button>
     Create Post
   </button>
-  <div *ngFor="let post of posts">
-    <!-- <h1>titlu: {{ post.title }}</h1>
-    <p>titlu: {{ post.text }}</p> -->
-    <app-post [post]="post"></app-post>
-  </div>
+  <ng-container *ngFor="let post of posts">
+    <div *ngIf="this.postVotes">
+      <app-post
+        *ngIf="this.postVotes"
+        [post]="post"
+        [postVotes]="postVotes"
+      ></app-post>
+    </div>
+  </ng-container>
 </div>

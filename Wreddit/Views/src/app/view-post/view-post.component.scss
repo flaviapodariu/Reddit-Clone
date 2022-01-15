@@ -35,12 +35,19 @@
   font-weight: 700;
   font-family: system-ui;
 }
-.upvote:hover {
+.upvoted {
+  color: #0288d1;
+}
+.downvoted {
   color: rgb(221, 40, 40);
+}
+
+.upvote:hover {
+  color: #0288d1;
   cursor: pointer;
 }
 .downvote:hover {
-  color: #0288d1;
+  color: rgb(221, 40, 40);
   cursor: pointer;
 }
 .post-text {

@@ -1,10 +1,30 @@
 <div class="container">
   <div class="post-container">
     <div class="post-votes">
-      <button class="upvote" (click)="vote(post.id, 'upvote')">&#8679;</button>
-      <!-- code for arrow up -->
-      <div class="vote-balance">{{post.upvotes - post.downvotes}}</div>
-      <button class="downvote" (click)="vote(post.id, 'downvote')">&#8681;</button>
+      <ng-container *ngIf="isVoted === 1">
+        <button class="upvote upvoted" (click)="vote(post.id, 1)">
+          &#8679;
+        </button>
+        <!-- code for arrow up -->
+        <div class="vote-balance">{{ post.upvotes - post.downvotes }}</div>
+        <button class="downvote" (click)="vote(post.id, -1)">&#8681;</button>
+      </ng-container>
+
+      <ng-container *ngIf="isVoted === -1">
+        <button class="upvote" (click)="vote(post.id, 1)">&#8679;</button>
+        <!-- code for arrow up -->
+        <div class="vote-balance">{{ post.upvotes - post.downvotes }}</div>
+        <button class="downvote downvoted" (click)="vote(post.id, -1)">
+          &#8681;
+        </button>
+      </ng-container>
+
+      <ng-container *ngIf="isVoted === 0">
+        <button class="upvote" (click)="vote(post.id, 1)">&#8679;</button>
+        <!-- code for arrow up -->
+        <div class="vote-balance">{{ post.upvotes - post.downvotes }}</div>
+        <button class="downvote" (click)="vote(post.id, -1)">&#8681;</button>
+      </ng-container>
       <!-- code for arrow down -->
     </div>
     <div class="post-content">
@@ -42,7 +62,9 @@
   </div>
   <div class="comments-container">
     <div class="comment" *ngFor="let comment of comments">
-      <div class="comment-author"> {{comment.user.userName}} <span>9 hr ago</span></div>
+      <div class="comment-author">
+        {{ comment.user.userName }} <span>9 hr ago</span>
+      </div>
       <div class="comment-text">{{ comment.content }}</div>
       <div class="comment-votes">
         <button class="upvote">&#8679;</button>

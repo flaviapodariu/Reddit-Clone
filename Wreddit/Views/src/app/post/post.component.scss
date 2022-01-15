@@ -40,14 +40,21 @@
   font-size: 1.7rem;
   font-weight: 700;
   font-family: system-ui;
-}
-.upvote:hover {
-  color: rgb(221, 40, 40);
   cursor: pointer;
+}
+
+.upvoted {
+  color: #0288d1;
+}
+.downvoted {
+  color: rgb(221, 40, 40);
+}
+
+.upvote:hover {
+  color: #0288d1;
 }
 .downvote:hover {
-  color: #0288d1;
-  cursor: pointer;
+  color: rgb(221, 40, 40);
 }
 .post-details {
   display: flex;

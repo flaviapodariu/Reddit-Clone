@@ -9,7 +9,7 @@ namespace Wreddit.Models.Entities.DTOs
     {
         public int PostId { get; set; }
         public int UserId { get; set; }
-        public string VoteType { get; set; }
+        public int VoteType { get; set; }
     }
 
 }

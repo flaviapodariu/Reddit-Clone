@@ -41,7 +41,7 @@ namespace Wreddit.Repositories
             var userVote = await _context.PostVotes.FindAsync(dto.PostId, dto.UserId);
             if (userVote != null && userVote.VoteType == 1) //if user already voted 
             {
-                if (dto.VoteType.ToLower() == "downvote")  //if vote is diff from the one in db
+                if (dto.VoteType == -1)  //if vote is diff from the one in db
                 {
                     post.Downvotes += 1;
                     userVote.VoteType = -1;
@@ -54,7 +54,7 @@ namespace Wreddit.Repositories
             else
             if (userVote != null)
             {
-                if (dto.VoteType.ToLower() == "upvote")
+                if (dto.VoteType == 1)
                 {
                     post.Upvotes += 1;
                     userVote.VoteType = 1;
@@ -65,7 +65,7 @@ namespace Wreddit.Repositories
                
             }
             else
-            if (dto.VoteType.ToLower() == "upvote")  //if user has never voted before
+            if (dto.VoteType  == 1)  //if user has never voted before
             {
                 post.Upvotes += 1;
                 var newUserVote = new PostVotes(dto.PostId, dto.UserId, 1); // 1 = upvote

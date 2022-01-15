@@ -63,8 +63,15 @@ namespace Wreddit.Controllers
         {
             await _repository.Post.UpdateVotes(dto);
             await _repository.SaveAsync();
-            return Ok();
+            return Ok(dto);
         }
-
+        [HttpGet]
+        [Authorize(Roles = "User")]
+        [Route("votes/{id}")]
+        public async Task<IActionResult> GetPostVotesFromUser(int id)
+        {
+            List<PostVotes> votes = await _repository.User.GetUsersPostVotes(id);
+            return Ok(votes);
+        }
     }
 }
