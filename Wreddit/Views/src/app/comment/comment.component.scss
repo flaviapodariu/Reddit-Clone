@@ -1,0 +1,62 @@
+.comment {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  padding-left: 2rem;
+  border-left: 1px solid #edeff1;
+}
+
+.comment-author {
+  font-weight: 600;
+}
+.comment-author span {
+  font-weight: normal;
+  opacity: 0.6;
+  margin-left: 0.5rem;
+}
+.comment-text {
+  font-size: larger;
+}
+.comment-votes {
+  display: flex;
+  align-items: center;
+}
+.comment-votes > button {
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 1.7rem;
+  font-weight: 500;
+  font-family: system-ui;
+  cursor: pointer;
+}
+
+.upvoted {
+  color: #0288d1;
+}
+.downvoted {
+  color: rgb(221, 40, 40);
+}
+
+.upvote:hover {
+  color: #0288d1;
+}
+.downvote:hover {
+  color: rgb(221, 40, 40);
+}
+
+.vote-balance {
+  font-size: medium;
+}
+.comment-votes a {
+  padding: 4px 10px;
+  font-weight: 600;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.comment-votes a:hover {
+  border: 0px;
+  border-radius: 5px;
+  background: lightgrey;
+}

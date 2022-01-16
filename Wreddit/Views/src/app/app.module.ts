@@ -16,6 +16,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { PostsService } from './services/posts.service';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CreatePostComponent } from './create-post/create-post.component';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
     PostComponent,
     ViewPostComponent,
     CreatePostComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,

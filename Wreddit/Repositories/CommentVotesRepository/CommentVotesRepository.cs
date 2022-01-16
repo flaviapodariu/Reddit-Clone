@@ -18,10 +18,24 @@ namespace Wreddit.Repositories
             var votesToDelete = _context.CommentVotes.ToList();  //nu ma lasa cu async
             votesToDelete.RemoveAll(c => c.CommentId.Equals(commentId));
         }
-        public async Task<List<CommentVotes>> GetUsersCommentVotes(int id) // returns the comments the user voted on 
+        public async Task<List<CommentVoteDTO>> GetUsersCommentVotes(int post_id, int user_id) // returns the comments the user voted on 
         {
-            return await _context.CommentVotes.Where(vote => vote.UserId == id).ToListAsync();
-
+            var votes = _context.CommentVotes.Join(_context.Comments,
+                                                       commentVote => commentVote.CommentId, // join between comment and comment votes
+                                                       comment => comment.Id,
+                                                       (commentVote, comment) => new     
+                                                       {
+                                                           commentVote.CommentId,
+                                                           comment.PostId,
+                                                           commentVote.UserId,
+                                                           commentVote.VoteType
+                                                       });
+            List<CommentVoteDTO> commentVotesToReturn = votes.Where(v => v.PostId == post_id && v.UserId == user_id) // only take the votes for the specific post and user
+                .Select(v => new CommentVotes(v.CommentId, v.UserId, v.VoteType))
+                .AsEnumerable()
+                .Select(v => new CommentVoteDTO(v))
+                .ToList();
+            return commentVotesToReturn;
         }
         public async Task<Comment> UpdateCommentVotes(CommentVoteDTO dto)
         {
@@ -29,7 +43,7 @@ namespace Wreddit.Repositories
             var userVote = await _context.CommentVotes.FindAsync(dto.CommentId, dto.UserId);
             if (userVote != null && userVote.VoteType == 1) //if user already voted 
             {
-                if (dto.VoteType.ToLower() == "downvote")  //if vote is diff from the one in db
+                if (dto.VoteType == -1)  //if vote is diff from the one in db
                 {
                     comment.Downvotes += 1;
                     userVote.VoteType = -1;
@@ -42,7 +56,7 @@ namespace Wreddit.Repositories
             else
             if (userVote != null)
             {
-                if (dto.VoteType.ToLower() == "upvote")
+                if (dto.VoteType == 1)
                 {
                     comment.Upvotes += 1;
                     userVote.VoteType = 1;
@@ -53,7 +67,7 @@ namespace Wreddit.Repositories
 
             }
             else
-            if (dto.VoteType.ToLower() == "upvote")  //if user has never voted before
+            if (dto.VoteType == 1)  //if user has never voted before
             {
                 comment.Upvotes += 1;
                 var newUserVote = new CommentVotes(dto.CommentId, dto.UserId, 1); // 1 = upvote

@@ -21,22 +21,16 @@ export class PostComponent implements OnInit {
   ) {}
 
   isVoted: number = 0;
-  @Input() post: PostResponse = {
-    id: 0,
-    userId: 0,
-    upvotes: 0,
-    downvotes: 0,
-    title: '',
-    text: '',
-    user: {
-      email: '',
-      id: 0,
-      userName: '',
-    },
-  };
-  @Input()
-  public postVotes!: PostVote[];
+  @Input() post!: PostResponse;
 
+  @Input() postVotes!: PostVote[];
+
+  ngOnInit(): void {
+    let postVote = this.postVotes.find((vote) => vote.postId === this.post.id); // checks if the post is voted in postVotes
+    if (postVote) {
+      this.isVoted = postVote.voteType;
+    }
+  }
   votePost(postId: number, voteType: number) {
     if (this.authService.authStatus()) {
       this.postsService
@@ -75,11 +69,5 @@ export class PostComponent implements OnInit {
 
   public goToPostPage(id: number): void {
     this.router.navigateByUrl('/view-post/' + id);
-  }
-  ngOnInit(): void {
-    let postVote = this.postVotes.find((vote) => vote.postId === this.post.id); // checks if the post is voted in postVotes
-    if (postVote) {
-      this.isVoted = postVote.voteType;
-    }
   }
 }
