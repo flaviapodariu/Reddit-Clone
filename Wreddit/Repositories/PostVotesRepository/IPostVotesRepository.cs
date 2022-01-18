@@ -9,8 +9,9 @@ namespace Wreddit.Repositories
 {
     public interface IPostVotesRepository: IGenericRepository<PostVotes>
     {
-        void DeleteById(int PostId);
+        Task<List<PostVotes>> DeleteByPostId(int postId);
         Task<List<PostVotes>> GetUsersPostVotes(int id);
         Task<Post> UpdatePostVotes(PostVoteDTO dto);
+        Task<List<PostVotes>> DeleteByPostByUserId(int userId);
     }
 }

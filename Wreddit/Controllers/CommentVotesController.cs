@@ -35,5 +35,13 @@ namespace Wreddit.Controllers
             return Ok(dto);
         }
 
+        [HttpDelete]
+        [Route("{userId}")]
+        public async Task<IActionResult> DeleteVotes(int userId)
+        {
+            await _repository.CommentVotes.DeleteByCommentByUserId(userId);
+            await _repository.SaveAsync();
+            return Ok(userId);
+        }
     }
 }

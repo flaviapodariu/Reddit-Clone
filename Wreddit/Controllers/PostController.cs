@@ -73,12 +73,12 @@ namespace Wreddit.Controllers
                 if (postToDelete.UserId == dto.UserId || _userService.ValidateAdminRole(dto.Token))
                 {
 
-                    _repository.PostVotes.DeleteById(dto.Id);
+                    await _repository.PostVotes.DeleteByPostId(dto.Id);
 
                     var comments = await _repository.Comment.GetCommentsFromPost(dto.Id);
                     foreach(var comm in comments)
                     {
-                        _repository.CommentVotes.DeleteById(comm.Id);
+                       await _repository.CommentVotes.DeleteByCommentId(comm.Id);
                     }
 
                     _repository.Post.Delete(postToDelete);

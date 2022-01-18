@@ -13,10 +13,11 @@ namespace Wreddit.Repositories
     {
         public PostVotesRepository(WredditContext context) : base(context) { }
 
-        public async void DeleteById(int postId)
+        public async Task<List<PostVotes>> DeleteByPostId(int postId)
         {
             var votesToDelete =  await _context.PostVotes.ToListAsync();  
             votesToDelete.RemoveAll(p => p.PostId.Equals(postId));
+            return votesToDelete;
         }
         public async Task<List<PostVotes>> GetUsersPostVotes(int id) // returns the posts the user voted on 
         {
@@ -69,5 +70,13 @@ namespace Wreddit.Repositories
             return post;
 
         }
+        public async Task<List<PostVotes>> DeleteByPostByUserId(int userId)
+        {
+            var votesToDelete = await _context.PostVotes.Include(c => c.Post).ToListAsync();
+            _context.PostVotes.RemoveRange(votesToDelete.Where(c => c.PostId == c.Post.Id && c.Post.UserId == userId));
+            return votesToDelete;
+        }
     }
+
+         
 }

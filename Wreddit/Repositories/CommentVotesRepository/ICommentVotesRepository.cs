@@ -9,7 +9,10 @@ namespace Wreddit.Repositories
 {
     public interface ICommentVotesRepository : IGenericRepository<CommentVotes>
     {
-        void DeleteById(int PostId);
+        Task<List<CommentVotes>> DeleteByCommentId(int commentId);
+        Task<List<CommentVotes>> DeleteByPostId(int postId);
+        Task<List<CommentVotes>> DeleteByCommentByUserId(int userId);
+       // Task<List<CommentVotes>> DeleteByPostByUserId(int userId);
         Task<List<CommentVotes>> GetUsersCommentVotes(int id);
         Task<Comment> UpdateCommentVotes(CommentVoteDTO dto);
     }

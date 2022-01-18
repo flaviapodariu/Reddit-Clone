@@ -40,7 +40,7 @@ export class ViewPostComponent implements OnInit {
     private activateRoute: ActivatedRoute,
     private router: Router,
     private postService: PostsService,
-    private authService: AuthenticationService,
+    public authService: AuthenticationService,
     private commentService: CommentsService
   ) {
     this.postId = this.activateRoute.snapshot.params['id'];
@@ -141,5 +141,10 @@ export class ViewPostComponent implements OnInit {
       this.commentService.voteComment(commentId, voteType).subscribe((res: any)=> console.log(res));
     }
     else this.router.navigate(['/login']);
+  }
+
+  deletePost(postId: number){
+    this.postService.deletePost(postId).subscribe((res:any) => console.log(res));
+    this.router.navigate(['/']);
   }
 }

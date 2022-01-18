@@ -16,6 +16,8 @@ import { AuthenticationService } from './services/authentication.service';
 import { PostsService } from './services/posts.service';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CreatePostComponent } from './create-post/create-post.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { CreatePostComponent } from './create-post/create-post.component';
     MatSelectModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatExpansionModule,
+    MatIconModule
   ],
   
   providers: 

@@ -34,6 +34,16 @@ namespace Wreddit.Repositories
             return await _context.Posts.Include(post => post.User).Where(post => post.Id == id).FirstOrDefaultAsync();
         }
 
-  
+        public async Task<List<Post>> GetPostsByUser(int userId)
+        {
+            return await _context.Posts.Where(post => post.UserId == userId).ToListAsync();
+        }
+
+        public async Task<List<Post>> DeleteByUserId(int userId)
+        {
+            var postsToDelete = await _context.Posts.Include(p => p.PostVotes).Where(c => c.UserId == userId).ToListAsync();
+            _context.Posts.RemoveRange(postsToDelete.Where(c => c.UserId == userId));
+            return postsToDelete;
+        }
     }
 }

@@ -17,6 +17,24 @@ namespace Wreddit.Repositories
         {
             return await _context.Comments.Include(comment => comment.User).Where(comment => comment.PostId == PostId).ToListAsync();
         }
-    
+
+        public async Task<List<Comment>> GetCommentsByUser(int UserId)
+        {
+            return await _context.Comments.Where(comment => comment.UserId == UserId).ToListAsync();
+        }
+
+        public async Task<List<Comment>> DeleteByUser(int UserId)
+        {
+            var commsToDelete = await _context.Comments.Where(c => c.UserId == UserId).ToListAsync();
+            _context.Comments.RemoveRange(commsToDelete.Where(c => c.UserId == UserId));
+            return commsToDelete;
+        }
+        public async Task<List<Comment>> DeleteByPost(int PostId)
+        {
+            var commsToDelete = await _context.Comments.Where(c => c.PostId == PostId).ToListAsync();
+            _context.Comments.RemoveRange(commsToDelete.Where(c => c.PostId == PostId));
+            return commsToDelete;
+        }
+
     }
 }
