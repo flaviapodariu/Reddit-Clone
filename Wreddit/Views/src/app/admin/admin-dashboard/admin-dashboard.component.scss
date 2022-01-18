@@ -1,7 +1,36 @@
-.getb{
-    position: relative;
-    bottom: 0;
-    right:0;
-    width: 100px;
-    height: 50px;
+.group-wrapper{
+    display: flex;
+    flex-direction: column;
+    row-gap: 2vh;
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:40vw;
+    margin-left: -20vw;
+    height:80vh;
+    margin-top: -40vh;
+}
+.all-users-list{
+    display:flex;
+    flex-direction: column;
+    row-gap: 1vh;
+}
+.user-data-wrapper{
+    display:flex;
+    column-gap: 1vh;
+    width:25vw;
+    border:2px rgb(92, 91, 91) solid;
+    border-radius: 4px;
+}
+.user-data{
+    display: flex;
+    flex-direction: column;  
+}
+
+.button-section{
+    display: flex;
+    // width:inherit;
+    float:right;
+    justify-content: flex-end;
+    align-items: center;
 }

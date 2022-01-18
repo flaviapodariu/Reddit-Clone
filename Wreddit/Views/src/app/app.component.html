@@ -12,8 +12,33 @@
   <div class="account-control">
     <button *ngIf="!this.authService.authStatus()" routerLink="/login" mat-stroked-button>Log In</button>
     <button *ngIf="!this.authService.authStatus()" routerLink="/signup" mat-stroked-button>Sign Up</button>
-    <button *ngIf="this.authService.authStatus()"  routerLink="/" (click)="logout()" mat-stroked-button>Log Out</button>
   </div>
+
+
+<div *ngIf="this.authService.authStatus()" class="dropdown-wrapper">
+  <div (click)="clickStatus()" class="user-dropdown">
+    <i class="fa fa-user" style="font-size:24px"></i>
+    <div class="user-info">{{this.authService.getUsername()}}</div>
+    <div class="drop-icon">^</div>
+  </div>  
+
+  <div [hidden]="this.clicked" class="dropdown-options">   
+    <button *ngIf="this.authService.hasRole('Admin')"
+             (click)="clickStatus()"
+             routerLink="/restricted/admin-dashboard" mat-stroked-button>Profile</button>
+
+    <button *ngIf="this.authService.hasRole('User')"
+             (click)="clickStatus()"
+             routerLink="/" mat-stroked-button>Profile</button> 
+    <div class="logout-button">
+      <i class="fa fa-sign-out" style="font-size:15px"></i>
+      <button routerLink="/" (click)="clickStatus()" (click)="logout()" mat-stroked-button> Log Out</button>
+    </div>        
+     
+
+  </div>
+</div>
+  
 </div>
 
 <router-outlet></router-outlet>

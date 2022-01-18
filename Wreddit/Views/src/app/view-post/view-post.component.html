@@ -33,7 +33,7 @@
     </div>
     <div class="post-content">
       <div class="post-text">
-        <div class="autor-text">posted by autor 17 hours ago</div>
+        <div class="autor-text">{{ post.user.userName }}</div>
         <h1>{{ post.title }}</h1>
         <div>
           {{ post.text }}
@@ -46,6 +46,7 @@
           Share
         </div>
         <div class="share-post-link">Save</div>
+        <i *ngIf="this.authService.isOwner(post.user.id)" (click)="deletePost(post.id)" class="fa fa-trash"></i>
       </div>
       <div class="comment-form">
         <!-- <mat-form-field floatLabel="never"> -->

@@ -80,4 +80,18 @@ export class PostsService {
       this.httpOptions
     );
   }
+
+  deletePost(postId: number){
+    let userId = this.authService.getUserId();
+    let httpOptionsWithBody ={
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `${this.authService.getToken()}`,
+      }),
+      body:{"id": postId, "userId": userId, "token": this.authService.getToken()}
+    }
+    
+
+    return this.http.delete(`${this.apiUrl}/post`, httpOptionsWithBody);
+  }
 }

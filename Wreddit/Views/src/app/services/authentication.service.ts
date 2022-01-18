@@ -26,7 +26,17 @@ export class AuthenticationService {
       'Content-Type': 'application/json'
     })
   }  
+ 
+  isOwner(userId: number):boolean{
+    if(this.isLoggedIn())
+     { if(this.hasRole('User') && this.getUserId() === userId)
+          return true;
+       else if(this.hasRole('Admin'))
+          return true;
+     }
 
+     return false;
+  }
 
   authStatus():boolean{
     if(this.isLoggedIn() && this.hasRole('User') || this.hasRole('Admin'))

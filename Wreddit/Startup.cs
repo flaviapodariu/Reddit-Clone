@@ -59,7 +59,7 @@ namespace Wreddit
             });
 
             services.AddDbContext<WredditContext>(options => options.UseSqlServer("Data Source = (localdb)\\ProjectsV13; Initial Catalog = WredditDB; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False"));
-            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
             services.AddIdentity<User, Role>()
                  .AddEntityFrameworkStores<WredditContext>()
                  .AddDefaultTokenProviders();

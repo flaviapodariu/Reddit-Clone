@@ -13,10 +13,27 @@ namespace Wreddit.Repositories
     {
         public CommentVotesRepository(WredditContext context) : base(context) { }
 
-        public void DeleteById(int commentId)
+        public async Task<List<CommentVotes>> DeleteByCommentId(int commentId)
         {
-            var votesToDelete = _context.CommentVotes.ToList();  //nu ma lasa cu async
+            var votesToDelete = await _context.CommentVotes.ToListAsync();
             votesToDelete.RemoveAll(c => c.CommentId.Equals(commentId));
+            return votesToDelete;
+        }
+
+        public async Task<List<CommentVotes>> DeleteByPostId(int postId)
+        {
+            var votesToDelete = await _context.CommentVotes.Include(c => c.Comment)
+                                              .Where(v => v.Comment.PostId == postId).ToListAsync();
+
+            _context.CommentVotes.RemoveRange(votesToDelete.Where(v => v.Comment.PostId == postId));
+            return votesToDelete;
+        }
+
+        public async Task<List<CommentVotes>> DeleteByCommentByUserId(int userId)
+        {
+            var votesToDelete = await _context.CommentVotes.Include(c => c.Comment).ToListAsync();
+            _context.CommentVotes.RemoveRange(votesToDelete.Where(c => c.CommentId == c.Comment.Id && c.Comment.UserId == userId));
+            return votesToDelete;
         }
         public async Task<List<CommentVoteDTO>> GetUsersCommentVotes(int post_id, int user_id) // returns the comments the user voted on 
         {

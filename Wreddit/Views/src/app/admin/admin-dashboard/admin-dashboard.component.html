@@ -1,8 +1,22 @@
-<div *ngFor="let group of users">
-    <div *ngFor="let user of group.userData">
-       {{user.item1}}
-       {{user.item2}}
-    </div>
-  </div>
+<div class="group-wrapper">
+  <div *ngFor="let group of users; let i = index" class="{{'group'+ i}}">
+     <div *ngIf="group.role === 1" class="role">Admin</div>
+     <div *ngIf="group.role === 2" class="role">User</div>
 
-<button class="getb" (click)="this.getAll()">get emm</button>  
+  <div class="all-users-list">
+      <div *ngFor="let user of group.userData" class="user-data-wrapper">
+        
+          <div class="user-data">
+            <div class="username"> Username: {{user.item1}}</div>
+            <div class="email"> Email: {{user.item2}}</div>
+          </div> 
+          <div class="button-section">
+            <button mat-stroked-button>DELETE</button>
+          </div>
+          
+      </div>
+  </div>
+  </div>
+</div>
+
+

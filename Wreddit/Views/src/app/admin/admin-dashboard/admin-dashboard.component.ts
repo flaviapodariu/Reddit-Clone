@@ -18,9 +18,5 @@ export class AdminDashboardComponent implements OnInit {
     else alert("Could not get users!");
    });
   }
-  getAll()
-  {
-    return this.adminService.getAllUsers();
-  }
  
 }

@@ -14,7 +14,8 @@ namespace Wreddit.Repositories
         Task<List<Post>> GetAllPostsWithComments();
         Task<Post> GetPostWithComments(int id);
         Task<Post> GetPostWithUser(int id);
-        
 
+        Task<List<Post>> GetPostsByUser(int userId);
+        Task<List<Post>> DeleteByUserId(int userId);
     }
 }

@@ -12,7 +12,14 @@ export class AppComponent {
   logout(){ 
     this.authService.logout();
   }
+  clicked:boolean = false;
+
+  clickStatus(){
+    if(!this.clicked)
+     this.clicked = true;
+    else
+      this.clicked = false; 
+  }
   title = 'Wreddit';
 }
-
 
