@@ -17,6 +17,7 @@
 }
 .user-data-wrapper{
     display:flex;
+    align-items: center;
     column-gap: 1vh;
     width:25vw;
     border:2px rgb(92, 91, 91) solid;
@@ -30,7 +31,11 @@
 .button-section{
     display: flex;
     // width:inherit;
-    float:right;
-    justify-content: flex-end;
-    align-items: center;
+   
+}
+
+.button-section > button{
+    cursor: pointer;
+    color: white;
+    background-color: #ff4500;
 }

@@ -7,11 +7,13 @@
       <div *ngFor="let user of group.userData" class="user-data-wrapper">
         
           <div class="user-data">
-            <div class="username"> Username: {{user.item1}}</div>
-            <div class="email"> Email: {{user.item2}}</div>
+            <div class="username"> Username: {{user.item2}}</div>
+            <div class="email"> Email: {{user.item3}}</div>
           </div> 
           <div class="button-section">
-            <button mat-stroked-button>DELETE</button>
+            <p mat-stroked-button *ngIf="user.item2 === this.deletedUser">
+                {{user.item2}} has been deleted!</p>
+            <button mat-stroked-button *ngIf="user.item2 !== this.deletedUser" (click)="deleteUser(user.item1)">DELETE</button>
           </div>
           
       </div>

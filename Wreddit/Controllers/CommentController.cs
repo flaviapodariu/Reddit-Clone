@@ -75,6 +75,13 @@ namespace Wreddit.Controllers
             await _repository.SaveAsync();
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetNumberOfComments([FromBody] int postId)
+        {
+           var comms = await _repository.Comment.GetCommentsFromPost(postId);
+            return Ok(comms.Count());
+        }
     }
     
 }

@@ -40,13 +40,13 @@
         </div>
       </div>
       <div class="lower-post-links-wrapper">
-        <div class="comment-count">0 Comments</div>
+        <div class="comment-count">{{ post.nrComm }} comments</div>
         <div class="share-post-link">
           <div class="share-icon">&#10532;</div>
           Share
         </div>
         <div class="share-post-link">Save</div>
-        <i *ngIf="this.authService.isOwner(post.user.id)" (click)="deletePost(post.id)" class="fa fa-trash"></i>
+        <i *ngIf="this.authService.isOwner(post.userId)" (click)="deletePost(post.id)" class="fa fa-trash"></i>
       </div>
       <div class="comment-form">
         <!-- <mat-form-field floatLabel="never"> -->

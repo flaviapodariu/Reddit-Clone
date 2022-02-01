@@ -20,16 +20,17 @@ namespace Wreddit.Repositories
                                                            u => u.Id,
                                                            (ur, u) => new
                                                            {
+                                                               Id = u.Id,
                                                                UserName = u.UserName,
                                                                Email = u.Email,
                                                                Role = ur.RoleId
                                                            });
 
-            var admins = userRoles.Where(a => a.Role.Equals(1)).Select(a => new { a.UserName, a.Email })
-                                  .AsEnumerable().Select(a => new Tuple<string, string>(a.UserName, a.Email)).ToList();
+            var admins = userRoles.Where(a => a.Role.Equals(1)).Select(a => new { a.Id, a.UserName, a.Email })
+                                  .AsEnumerable().Select(a => new Tuple<int, string, string>(a.Id, a.UserName, a.Email)).ToList();
 
-            var users = userRoles.Where(u => u.Role.Equals(2)).Select(u => new {u.UserName, u.Email})
-                                 .AsEnumerable().Select(u => new Tuple<string, string>(u.UserName, u.Email)).ToList();
+            var users = userRoles.Where(u => u.Role.Equals(2)).Select(u => new {u.Id, u.UserName, u.Email})
+                                 .AsEnumerable().Select(u => new Tuple<int, string, string>(u.Id, u.UserName, u.Email)).ToList();
 
             var groups = await userRoles.GroupBy(role => role.Role).Select(all => new UsersInfoDTO(all.Key, all.Count())).ToListAsync();
             foreach(var group in groups)

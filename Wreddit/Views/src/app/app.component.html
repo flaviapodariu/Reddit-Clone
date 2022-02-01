@@ -29,7 +29,7 @@
 
     <button *ngIf="this.authService.hasRole('User')"
              (click)="clickStatus()"
-             routerLink="/" mat-stroked-button>Profile</button> 
+             routerLink="/user/user-dashboard" mat-stroked-button>Profile</button> 
     <div class="logout-button">
       <i class="fa fa-sign-out" style="font-size:15px"></i>
       <button routerLink="/" (click)="clickStatus()" (click)="logout()" mat-stroked-button> Log Out</button>

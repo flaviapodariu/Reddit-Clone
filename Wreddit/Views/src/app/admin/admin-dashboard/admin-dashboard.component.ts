@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService, allUsers } from 'src/app/services/admin.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -8,8 +10,13 @@ import { AdminService, allUsers } from 'src/app/services/admin.service';
 })
 export class AdminDashboardComponent implements OnInit {
 
-  constructor(private adminService: AdminService) { }
-   users: allUsers[] = [];
+  constructor(private adminService: AdminService,
+              public authService: AuthenticationService,
+              private userService: UserService) { }
+
+  users: allUsers[] = [];
+  deletedUser: string = "";
+
   ngOnInit(): void {
    this.adminService.getAllUsers().subscribe((res: any)=>{
      console.log(res);
@@ -19,4 +26,13 @@ export class AdminDashboardComponent implements OnInit {
    });
   }
  
+  deleteUser(userToDelete: number)
+  {
+     this.userService.deleteUser(userToDelete).subscribe((res:any)=>{
+        if(res)
+          this.deletedUser = res; 
+     }
+     );
+
+  }
 }

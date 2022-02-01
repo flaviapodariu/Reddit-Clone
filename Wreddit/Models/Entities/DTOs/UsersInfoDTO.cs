@@ -7,8 +7,7 @@ namespace Wreddit.Models.Entities.DTOs
 {
     public class UsersInfoDTO
     {
-        public List<Tuple<string, string>> UserData { get; set; }
-        //public List<string> Email { get; set; }
+        public List<Tuple<int, string, string>> UserData { get; set; }  //id + username + email
         public int Role { get; set; }  // 1 - Admin,  2 - User
 
         public int Count { get; set; }
@@ -16,10 +15,10 @@ namespace Wreddit.Models.Entities.DTOs
         public UsersInfoDTO(): base() { }
         public UsersInfoDTO(int role, int count)
         {
-            this.UserData = new List<Tuple<string, string>>();
-            //this.Email = new List<string>();
+            this.UserData = new List<Tuple<int, string, string>>();
             this.Role = role;
             this.Count = count;
         }
     }
 }
+ 

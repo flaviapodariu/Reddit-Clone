@@ -10,6 +10,7 @@ export interface PostResponse {
   downvotes: number;
   title: string;
   text: string;
+  nrComm: number;
   user: {
     id: number;
     userName: string;
@@ -93,5 +94,9 @@ export class PostsService {
     
 
     return this.http.delete(`${this.apiUrl}/post`, httpOptionsWithBody);
+  }
+
+  getPostsByUser(userId: number){
+    return this.http.get(`${this.apiUrl}/posts/user/${userId}`, this.httpOptions);
   }
 }

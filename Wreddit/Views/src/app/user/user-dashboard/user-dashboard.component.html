@@ -1,1 +1,24 @@
-<p>user-dashboard works!</p>
+<div class="user-corner">
+    <div class="user-info">
+        <img src="../../../assets/images/user-pic.png" width="30" heigth="30">
+        <p>{{this.authService.getUsername()}}</p>
+    </div>
+   <div class="user-buttons">
+      <button mat-stroked-button routerLink="/create-post">New Post</button>
+      <button mat-stroked-button (click)="deleteAccount()">Delete Account</button>
+   </div>
+</div>
+
+
+<div class="posts-container">
+    <ng-container *ngFor="let post of posts">
+        <div routerLink="/view-post/{{post.id}}" class="post-box">
+            <div class="title">{{post.title}}</div>
+            <div class="content">{{post.text}}</div>
+            <div class="post-stats">
+                <div class="votes">Vote balance: {{ post.upvotes - post.downvotes }}</div>
+                <div class="comments"> {{ post.nrComm }} comments </div>
+            </div>
+        </div>
+    </ng-container>
+  </div>

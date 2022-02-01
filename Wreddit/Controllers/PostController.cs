@@ -30,12 +30,15 @@ namespace Wreddit.Controllers
         public async Task<IActionResult> GetAllPosts()
         {
             List<Post> posts = await _repository.Post.GetAllPostsWithUsers(); // join on user table
-
             var postsToReturn = new List<PostDTO>();
             foreach(var post in posts)
             {
                 var userToReturn = new UserDTO(post.User);  
                 var postDto = new PostDTO(post);
+
+                List<Comment> comms = await _repository.Comment.GetCommentsFromPost(post.Id);
+                postDto.NrComm = comms.Count();
+
                 postDto.User = userToReturn;
                 postsToReturn.Add(postDto);
             }
@@ -47,6 +50,10 @@ namespace Wreddit.Controllers
         {
             var post = await _repository.Post.GetPostWithUser(id);
             var postToReturn = new PostDTO(post);
+
+            List<Comment> comms = await _repository.Comment.GetCommentsFromPost(id);
+            postToReturn.NrComm = comms.Count();
+
             var userToReturn = new UserDTO(post.User);
 
             postToReturn.User = userToReturn;
@@ -93,6 +100,28 @@ namespace Wreddit.Controllers
 
             await _repository.SaveAsync();
             return Ok(dto);
+        }
+
+        [Route("/posts/user/{userId}")]
+        [HttpGet]
+        [Authorize(Roles ="User")]
+        public async Task<IActionResult> GetPostsByUser(int userId)
+        {
+           var posts = await _repository.Post.GetPostsByUser(userId);
+           var postsToReturn = new List<PostDTO>();
+           var user = await _repository.User.GetByIdAsync(userId);
+
+            foreach (var post in posts)
+            {
+                var postDto = new PostDTO(post);
+
+                List<Comment> comms = await _repository.Comment.GetCommentsFromPost(post.Id);
+                postDto.NrComm = comms.Count();
+
+                postDto.User = new UserDTO(user);
+                postsToReturn.Add(postDto);
+            }
+            return Ok(postsToReturn);
         }
     }
 }

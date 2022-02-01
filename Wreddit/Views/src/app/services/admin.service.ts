@@ -4,8 +4,9 @@ import { AuthenticationService } from './authentication.service';
 
 export interface allUsers {
   userData:[{
-     item1: string,
-     item2: string
+     item1: number,
+     item2: string,
+     item3: string
      }
   ],
   role: number,
@@ -26,7 +27,6 @@ export class AdminService {
     })
   }
   getAllUsers(){
-    return this.http.get(`${this.apiUrl}/admin-dashboard`,
-    )
+    return this.http.get(`${this.apiUrl}/admin-dashboard`, this.httpOptions);
   }
 }

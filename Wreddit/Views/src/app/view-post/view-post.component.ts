@@ -23,7 +23,20 @@ export class ViewPostComponent implements OnInit {
   postId: number;
   content = new FormControl('', [Validators.required]); // the comment textarea value
   isVoted: number = 0;
-  post!: PostResponse;
+  post: PostResponse = {
+    id: 0,
+    userId: 0,
+    upvotes: 0,
+    downvotes: 0,
+    title: '',
+    text: '',
+    nrComm: 0,
+    user: {
+      email: '',
+      id: 0,
+      userName: '',
+    },
+  };
   comments: CommentResponse[] = [];
   commentVotes: CommentVote[] = [];
   constructor(
@@ -40,6 +53,7 @@ export class ViewPostComponent implements OnInit {
     this.postService.getPostById(this.postId).then((response) => {
       // the the post the user clicked on
       this.post = response;
+      console.log(response);
     });
     this.postService.getPostVotesFromUser().subscribe((res: PostVote[]) => {
       let postVote = res.find((vote) => vote.postId === this.post.id); // checks if the post is voted in postVotes

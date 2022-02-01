@@ -13,6 +13,7 @@ namespace Wreddit.Models.Entities.DTOs
         public int Downvotes { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
+        public int NrComm { get; set; }
         public UserDTO User { get; set; }
 #nullable enable
         public List<Comment>? Comments { get; set; }
@@ -27,6 +28,7 @@ namespace Wreddit.Models.Entities.DTOs
             this.Downvotes = post.Downvotes;
             this.Title = post.Title;
             this.Text = post.Text;
+            this.NrComm = 0;
             this.Comments = new List<Comment>();
             this.PostVotes = new List<PostVotes>();
         }

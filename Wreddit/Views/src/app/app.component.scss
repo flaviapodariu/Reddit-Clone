@@ -111,10 +111,12 @@ p {
   color:white;
   background-color: #1a1a1b;
 }
-.dropdown-options>button:hover{
+.dropdown-options>button:hover, .logout-button:hover{
   background-color: grey;
 }
-
+.logout-button>button{
+  border:none;
+}
 a,
 a:visited,
 a:hover {

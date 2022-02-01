@@ -29,9 +29,10 @@ export class AuthenticationService {
  
   isOwner(userId: number):boolean{
     if(this.isLoggedIn())
-     { if(this.hasRole('User') && this.getUserId() === userId)
+     { 
+       if(this.hasRole('User') && this.getUserId() == userId)
           return true;
-       else if(this.hasRole('Admin'))
+       if(this.hasRole('Admin'))
           return true;
      }
 
